@@ -192,3 +192,6 @@ class ExperimentalConfig(Config):
         self.msc4010_push_rules_account_data = experimental.get(
             "msc4010_push_rules_account_data", False
         )
+
+        # MSC1446 related : allow the user to request oft_logout on one or all devices
+        self.msc1466_soft_logout = experimental.get("msc1466_soft_logout", False)
