@@ -18,7 +18,7 @@ from twisted.test.proto_helpers import MemoryReactor
 
 import synapse.rest.admin
 from synapse.api.errors import NotFoundError
-from synapse.rest.client import devices, login, logout, soft_logout
+from synapse.rest.client import devices, login, logout, soft_logout, soft_token_invalidate
 from synapse.rest.client.account import WhoamiRestServlet
 from synapse.server import HomeServer
 from synapse.util import Clock
@@ -40,6 +40,7 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         logout.register_servlets,
         lambda hs, http_server: WhoamiRestServlet(hs).register(http_server),
         soft_logout.register_servlets,
+        soft_token_invalidate.register_servlets,
     ]
 
     def make_homeserver(self, reactor: MemoryReactor, clock: Clock) -> HomeServer:
@@ -71,8 +72,8 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         self.assertEqual(200, channel.code, msg=channel.json_body)
         return channel.json_body["access_token"]
 
-    @override_config({"experimental_features": {"msc1466_soft_logout": True}})
-    def test_soft_logout(self) -> None:
+    @override_config({"session_lifetime": "24h", "experimental_features": {"msc1466_soft_logout": True}})
+    def test_soft_token_invalidate(self) -> None:
         """Test that current device gets soft-logged out
         when POSTing on `/soft_logout`."""
         # Register user
@@ -80,6 +81,9 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
 
         # Log in as normal
         access_token = self.login("kermit", "monkey")
+
+        channel = self.make_request(b"GET", TEST_URL, access_token=access_token)
+        self.assertEqual(channel.code, 200, channel.result)
 
         # we should now be able to make requests with the access token
         channel = self.make_request(b"GET", TEST_URL, access_token=access_token)
@@ -90,16 +94,18 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         device_id = channel.json_body["device_id"]
         user_id = channel.json_body["user_id"]
 
-        # Request soft_logout for this_session
-        channel = self.make_request(b"POST", "/soft_logout", access_token=access_token)
+        # Request soft_token_validation for this_session
+        channel = self.make_request(b"POST", "/soft_token_invalidate", access_token=access_token)
         self.assertEqual(channel.code, 200, msg=channel.result)
+
+        # Verify we are soft-logged-out
+        channel = self.make_request(b"GET", TEST_URL, access_token=access_token)
+        self.assertEqual(channel.code, 401, channel.result)
+        self.assertEqual(channel.json_body["errcode"], "M_UNKNOWN_TOKEN")
+        self.assertEqual(channel.json_body["soft_logout"], True)
 
         # Verify that the pair user_id,device_id did not do a hard_logout
         self.get_success(self.handler.get_device(user_id, device_id))
-
-        # Now try to log-out again : The token should be invalidated
-        channel = self.make_request(b"POST", "/logout", access_token=access_token)
-        self.assertEqual(channel.code, 401, msg=channel.result)
 
         # Reconnect on the same device
         access_token = self.login("kermit", "monkey", device_id=device_id)
@@ -115,7 +121,8 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         # Verify that the device no longer exists for user_id
         self.get_failure(self.handler.get_device(user_id, device_id), NotFoundError)
 
-    @override_config({"experimental_features": {"msc1466_soft_logout": True}})
+
+    @override_config({"session_lifetime": "24h", "experimental_features": {"msc1466_soft_logout": True}})
     def test_soft_logout_all(self) -> None:
         """Tests that all devices get soft-logged out
         when POSTing on `/soft_logout/all`."""
@@ -139,7 +146,7 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
 
         # POST soft_logout/all with first access token
         channel = self.make_request(
-            b"POST", "/soft_logout/all", access_token=access_token_1
+            b"POST", "/soft_token_invalidate/all", access_token=access_token_1
         )
         self.assertEqual(channel.code, 200, channel.result)
 
@@ -148,10 +155,12 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         self.get_success(self.handler.get_device(user_id, device_id_2))
         self.get_success(self.handler.get_device(user_id, device_id_3))
 
-        # Now attempting to log_out, the token should be invalidated
+        # We should be soft_logged out
         # Using second token for demonstration purposes
-        channel = self.make_request(b"POST", "/logout", access_token=access_token_2)
-        self.assertEqual(channel.code, 401, msg=channel.result)
+        channel = self.make_request(b"GET", TEST_URL, access_token=access_token_2)
+        self.assertEqual(channel.code, 401, channel.result)
+        self.assertEqual(channel.json_body["errcode"], "M_UNKNOWN_TOKEN")
+        self.assertEqual(channel.json_body["soft_logout"], True)
 
         # Reconnect on the two devices, and not the third
         access_token_1 = self.login("kermit", "monkey", device_id=device_id_1)
@@ -161,25 +170,15 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         channel = self.make_request(b"GET", TEST_URL, access_token=access_token_1)
         self.assertEqual(channel.code, 200, channel.result)
 
-        # Final log-out should work on 2 and not the
+        # Final log-out should work on all three
         channel = self.make_request(b"POST", "/logout", access_token=access_token_1)
         self.assertEqual(channel.code, 200, msg=channel.result)
         channel = self.make_request(b"POST", "/logout", access_token=access_token_2)
         self.assertEqual(channel.code, 200, msg=channel.result)
         channel = self.make_request(b"POST", "/logout", access_token=access_token_3)
-        self.assertEqual(channel.code, 401, msg=channel.result)
+        self.assertEqual(channel.code, 200, msg=channel.result)
 
         # Verify each (user,device) existence status
         self.get_failure(self.handler.get_device(user_id, device_id_1), NotFoundError)
         self.get_failure(self.handler.get_device(user_id, device_id_2), NotFoundError)
-        self.get_success(self.handler.get_device(user_id, device_id_3))
-
-        # Finish login-then hard_logout on last device
-        access_token_3 = self.login("kermit", "monkey", device_id=device_id_3)
-        channel = self.make_request(b"POST", "/logout", access_token=access_token_3)
-        self.assertEqual(channel.code, 200, msg=channel.result)
-
-        # Verify that the devices no longer exists for user_id
-        self.get_failure(self.handler.get_device(user_id, device_id_3), NotFoundError)
-        self.get_failure(self.handler.get_device(user_id, device_id_3), NotFoundError)
         self.get_failure(self.handler.get_device(user_id, device_id_3), NotFoundError)

@@ -27,61 +27,64 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class SoftLogoutRestServlet(RestServlet):
+class InvalidateTokenRestServlet(RestServlet):
     """
-    This is a potential implementation soft_logout by request.
+    This was meant to allow soft_logout for users
+    The current implementation forcefully relies on tokens becoming invalid
+    when validity time expires.
+    This method would allow users to cause the validity time of the token
+    used to set to 0, thus indirectly causing a soft_logout.
 
-    The client soft-logs out by request, thus requiring re-authentication without
-    destroying the device.
-
-    To soft-logout from current device
+    To invalidate current token
     Request:
-    POST /soft_logout HTTP/1.1
+    POST /soft_token_invalidate HTTP/1.1
 
     Response:
     HTTP/1.1 200
     Content: {}
 
-    To soft-logout from all devices
+    To invalidate all the user's access tokens
     Request:
-    POST /soft_logout/all HTTP/1.1
+    POST /soft_token_invalidate/all HTTP/1.1
 
     Response:
     HTTP/1.1 200
     Content: {}
     """
 
-    PATTERNS = client_patterns("/soft_logout$", v1=True)
+    PATTERNS = client_patterns("/soft_token_invalidate$", v1=True)
 
     def __init__(self, hs: "HomeServer"):
         super().__init__()
         self.auth = hs.get_auth()
+        self.store = hs.get_datastores().main
+        self.clock = hs.get_clock()
         self._auth_handler = hs.get_auth_handler()
 
     async def on_POST(self, request: SynapseRequest) -> Tuple[int, JsonDict]:
-        """Causes the device to soft_logout.
+        """Causes the token validity tine to set to 0.
 
         Returns:
         200, {}
         """
         requester = await self.auth.get_user_by_req(request, allow_expired=True)
-        user_id = requester.user.to_string()
+        access_id = requester.access_token_id
+        access_token = self.auth.get_access_token_from_request(request)
 
-        # AuthHandler's method deletes all the tokens and refresh tokens associated,
-        # as specified in RegistrationStore. Only soft_logout current device
-        await self._auth_handler.delete_access_tokens_for_user(
-            user_id, device_id=requester.device_id
-        )
+        # Invalidate current access token only
+        await self.store.set_access_token_validity(access_token, access_id, 0)
 
         return 200, {}
 
 
-class SoftLogoutAllRestServlet(RestServlet):
-    PATTERNS = client_patterns("/soft_logout/all$", v1=True)
+class InvalidateTokenAllRestServlet(RestServlet):
+    PATTERNS = client_patterns("/soft_token_invalidate/all$", v1=True)
 
     def __init__(self, hs: "HomeServer"):
         super().__init__()
         self.auth = hs.get_auth()
+        self.clock = hs.get_clock()
+        self.store = hs.get_datastores().main
         self._auth_handler = hs.get_auth_handler()
 
     async def on_POST(self, request: SynapseRequest) -> Tuple[int, JsonDict]:
@@ -89,11 +92,13 @@ class SoftLogoutAllRestServlet(RestServlet):
         user_id = requester.user.to_string()
 
         # Soft_logout all devices
-        await self._auth_handler.delete_access_tokens_for_user(user_id)
+        await self.store.user_set_account_tokens_validity(
+            user_id, validity_until_ms=0, except_token_id=None, device_id=None
+        )
         return 200, {}
 
 
 def register_servlets(hs: "HomeServer", http_server: HttpServer) -> None:
     if hs.config.experimental.msc1466_soft_logout:
-        SoftLogoutRestServlet(hs).register(http_server)
-        SoftLogoutAllRestServlet(hs).register(http_server)
+        InvalidateTokenRestServlet(hs).register(http_server)
+        InvalidateTokenAllRestServlet(hs).register(http_server)

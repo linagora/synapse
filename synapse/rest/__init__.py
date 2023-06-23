@@ -57,6 +57,7 @@ from synapse.rest.client import (
     tags,
     thirdparty,
     tokenrefresh,
+    soft_token_invalidate,
     user_directory,
     versions,
     voip,
@@ -152,3 +153,4 @@ class ClientRestResource(JsonResource):
             login_token_request.register_servlets(hs, client_resource)
             rendezvous.register_servlets(hs, client_resource)
             soft_logout.register_servlets(hs, client_resource)
+            soft_token_invalidate.register_servlets(hs, client_resource)
