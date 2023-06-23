@@ -18,7 +18,13 @@ from twisted.test.proto_helpers import MemoryReactor
 
 import synapse.rest.admin
 from synapse.api.errors import NotFoundError
-from synapse.rest.client import devices, login, logout, soft_logout, soft_token_invalidate
+from synapse.rest.client import (
+    devices,
+    login,
+    logout,
+    soft_logout,
+    soft_token_invalidate,
+)
 from synapse.rest.client.account import WhoamiRestServlet
 from synapse.server import HomeServer
 from synapse.util import Clock
@@ -72,7 +78,12 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         self.assertEqual(200, channel.code, msg=channel.json_body)
         return channel.json_body["access_token"]
 
-    @override_config({"session_lifetime": "24h", "experimental_features": {"msc1466_soft_logout": True}})
+    @override_config(
+        {
+            "session_lifetime": "24h",
+            "experimental_features": {"msc1466_soft_logout": True},
+        }
+    )
     def test_soft_token_invalidate(self) -> None:
         """Test that current device gets soft-logged out
         when POSTing on `/soft_logout`."""
@@ -95,7 +106,9 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         user_id = channel.json_body["user_id"]
 
         # Request soft_token_validation for this_session
-        channel = self.make_request(b"POST", "/soft_token_invalidate", access_token=access_token)
+        channel = self.make_request(
+            b"POST", "/soft_token_invalidate", access_token=access_token
+        )
         self.assertEqual(channel.code, 200, msg=channel.result)
 
         # Verify we are soft-logged-out
@@ -121,8 +134,12 @@ class SoftLogoutRestTestCase(unittest.HomeserverTestCase):
         # Verify that the device no longer exists for user_id
         self.get_failure(self.handler.get_device(user_id, device_id), NotFoundError)
 
-
-    @override_config({"session_lifetime": "24h", "experimental_features": {"msc1466_soft_logout": True}})
+    @override_config(
+        {
+            "session_lifetime": "24h",
+            "experimental_features": {"msc1466_soft_logout": True},
+        }
+    )
     def test_soft_logout_all(self) -> None:
         """Tests that all devices get soft-logged out
         when POSTing on `/soft_logout/all`."""

@@ -68,7 +68,8 @@ class InvalidateTokenRestServlet(RestServlet):
         200, {}
         """
         requester = await self.auth.get_user_by_req(request, allow_expired=True)
-        access_id = requester.access_token_id
+        assert requester.access_token_id is not None
+        access_id: int = requester.access_token_id
         access_token = self.auth.get_access_token_from_request(request)
 
         # Invalidate current access token only

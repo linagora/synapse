@@ -2594,8 +2594,7 @@ class RegistrationStore(StatsStore, RegistrationBackgroundUpdateStore):
             where_clause = " AND ".join(k + " = ?" for k, _ in items)
             values: List[Union[str, int]] = [v for _, v in items]
 
-            refresh_where_clause = where_clause
-            refresh_values = values.copy()
+            values.copy()
             if except_token_id:
                 where_clause += " AND id != ?"
                 values.append(except_token_id)
@@ -2614,30 +2613,31 @@ class RegistrationStore(StatsStore, RegistrationBackgroundUpdateStore):
                     keyvalues={"id": token_id},
                     updatevalues={"valid_until_ms": validity_until_ms},
                 )
-                self._invalidate_cache_and_stream(txn, self.get_user_by_access_token,
-                                              (token,))
+                self._invalidate_cache_and_stream(
+                    txn, self.get_user_by_access_token, (token,)
+                )
 
-            self._invalidate_cache_and_stream(
-                txn, self.get_user_by_id, (user_id,)
-            )
+            self._invalidate_cache_and_stream(txn, self.get_user_by_id, (user_id,))
 
             return tokens_and_devices
 
         return await self.db_pool.runInteraction("user_set_account_tokens_validity", f)
 
-    async def set_access_token_validity(self, token: str, token_id: int,
-                                        validity_until_ms: int = 0) -> None:
+    async def set_access_token_validity(
+        self, token: str, token_id: int, validity_until_ms: int = 0
+    ) -> None:
         assert validity_until_ms >= 0
 
         def f(txn: LoggingTransaction) -> None:
             self.db_pool.simple_update_txn(
-                    txn,
-                    table="access_tokens",
-                    keyvalues={"id": token_id},
-                    updatevalues={"valid_until_ms": validity_until_ms},
-                )
-            self._invalidate_cache_and_stream(txn, self.get_user_by_access_token,
-                                              (token,))
+                txn,
+                table="access_tokens",
+                keyvalues={"id": token_id},
+                updatevalues={"valid_until_ms": validity_until_ms},
+            )
+            self._invalidate_cache_and_stream(
+                txn, self.get_user_by_access_token, (token,)
+            )
 
         await self.db_pool.runInteraction("set_access_token_validity", f)
 
