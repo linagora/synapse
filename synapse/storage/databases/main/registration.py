@@ -2597,7 +2597,6 @@ class RegistrationStore(StatsStore, RegistrationBackgroundUpdateStore):
             refresh_where_clause = where_clause
             refresh_values = values.copy()
             if except_token_id:
-                # TODO: support that for refresh tokens
                 where_clause += " AND id != ?"
                 values.append(except_token_id)
 
