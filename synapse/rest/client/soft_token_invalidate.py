@@ -92,7 +92,7 @@ class InvalidateTokenAllRestServlet(RestServlet):
         requester = await self.auth.get_user_by_req(request, allow_expired=True)
         user_id = requester.user.to_string()
 
-        # Soft_logout all devices
+        # soft_token_invalidate all devices
         await self.store.user_set_account_tokens_validity(
             user_id, validity_until_ms=0, except_token_id=None, device_id=None
         )
