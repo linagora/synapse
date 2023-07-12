@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 from twisted.test.proto_helpers import MemoryReactor
 
-from synapse.api.auth import Auth
+from synapse.api.auth.internal import InternalAuth
 from synapse.api.constants import UserTypes
 from synapse.api.errors import (
     CodeMessageException,
@@ -587,17 +587,16 @@ class RegistrationTestCase(unittest.HomeserverTestCase):
         self.assertFalse(self.get_success(d))
 
     def test_invalid_user_id(self) -> None:
-        invalid_user_id = "+abcd"
+        invalid_user_id = "^abcd"
         self.get_failure(
             self.handler.register_user(localpart=invalid_user_id), SynapseError
         )
 
-    @override_config({"experimental_features": {"msc4009_e164_mxids": True}})
-    def text_extended_user_ids(self) -> None:
-        """+ should be allowed according to MSC4009."""
-        valid_user_id = "+1234"
+    def test_special_chars(self) -> None:
+        """Ensure that characters which are allowed in Matrix IDs work."""
+        valid_user_id = "a1234_-./=+"
         user_id = self.get_success(self.handler.register_user(localpart=valid_user_id))
-        self.assertEqual(user_id, valid_user_id)
+        self.assertEqual(user_id, f"@{valid_user_id}:test")
 
     def test_invalid_user_id_length(self) -> None:
         invalid_user_id = "x" * 256
@@ -683,7 +682,7 @@ class RegistrationTestCase(unittest.HomeserverTestCase):
         request = Mock(args={})
         request.args[b"access_token"] = [token.encode("ascii")]
         request.requestHeaders.getRawHeaders = mock_getRawHeaders()
-        auth = Auth(self.hs)
+        auth = InternalAuth(self.hs)
         requester = self.get_success(auth.get_user_by_req(request))
 
         self.assertTrue(requester.shadow_banned)

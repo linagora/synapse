@@ -31,6 +31,7 @@ from twisted.web.iweb import IPolicyForHTTPS
 from twisted.web.resource import Resource
 
 from synapse.api.auth import Auth
+from synapse.api.auth.internal import InternalAuth
 from synapse.api.auth_blocking import AuthBlocking
 from synapse.api.filtering import Filtering
 from synapse.api.ratelimiting import Ratelimiter, RequestRatelimiter
@@ -90,7 +91,6 @@ from synapse.handlers.room import (
     RoomShutdownHandler,
     TimestampLookupHandler,
 )
-from synapse.handlers.room_batch import RoomBatchHandler
 from synapse.handlers.room_list import RoomListHandler
 from synapse.handlers.room_member import (
     RoomForgetterHandler,
@@ -427,7 +427,11 @@ class HomeServer(metaclass=abc.ABCMeta):
 
     @cache_in_self
     def get_auth(self) -> Auth:
-        return Auth(self)
+        if self.config.experimental.msc3861.enabled:
+            from synapse.api.auth.msc3861_delegated import MSC3861DelegatedAuth
+
+            return MSC3861DelegatedAuth(self)
+        return InternalAuth(self)
 
     @cache_in_self
     def get_auth_blocking(self) -> AuthBlocking:
@@ -486,10 +490,6 @@ class HomeServer(metaclass=abc.ABCMeta):
     @cache_in_self
     def get_room_creation_handler(self) -> RoomCreationHandler:
         return RoomCreationHandler(self)
-
-    @cache_in_self
-    def get_room_batch_handler(self) -> RoomBatchHandler:
-        return RoomBatchHandler(self)
 
     @cache_in_self
     def get_room_shutdown_handler(self) -> RoomShutdownHandler:

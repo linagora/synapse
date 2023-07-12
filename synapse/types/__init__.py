@@ -131,6 +131,7 @@ class Requester:
     user: "UserID"
     access_token_id: Optional[int]
     is_guest: bool
+    scope: Set[str]
     shadow_banned: bool
     device_id: Optional[str]
     app_service: Optional["ApplicationService"]
@@ -147,6 +148,7 @@ class Requester:
             "user_id": self.user.to_string(),
             "access_token_id": self.access_token_id,
             "is_guest": self.is_guest,
+            "scope": list(self.scope),
             "shadow_banned": self.shadow_banned,
             "device_id": self.device_id,
             "app_server_id": self.app_service.id if self.app_service else None,
@@ -175,6 +177,7 @@ class Requester:
             user=UserID.from_string(input["user_id"]),
             access_token_id=input["access_token_id"],
             is_guest=input["is_guest"],
+            scope=set(input.get("scope", [])),
             shadow_banned=input["shadow_banned"],
             device_id=input["device_id"],
             app_service=appservice,
@@ -186,6 +189,7 @@ def create_requester(
     user_id: Union[str, "UserID"],
     access_token_id: Optional[int] = None,
     is_guest: bool = False,
+    scope: StrCollection = (),
     shadow_banned: bool = False,
     device_id: Optional[str] = None,
     app_service: Optional["ApplicationService"] = None,
@@ -199,6 +203,7 @@ def create_requester(
         access_token_id:  *ID* of the access token used for this
             request, or None if it came via the appservice API or similar
         is_guest:  True if the user making this request is a guest user
+        scope:  the scope of the access token used for this request, if any
         shadow_banned:  True if the user making this request is shadow-banned.
         device_id:  device_id which was set at authentication time
         app_service:  the AS requesting on behalf of the user
@@ -215,10 +220,13 @@ def create_requester(
     if authenticated_entity is None:
         authenticated_entity = user_id.to_string()
 
+    scope = set(scope)
+
     return Requester(
         user_id,
         access_token_id,
         is_guest,
+        scope,
         shadow_banned,
         device_id,
         app_service,
@@ -340,22 +348,15 @@ class EventID(DomainSpecificString):
     SIGIL = "$"
 
 
-mxid_localpart_allowed_characters = set(
-    "_-./=" + string.ascii_lowercase + string.digits
+MXID_LOCALPART_ALLOWED_CHARACTERS = set(
+    "_-./=+" + string.ascii_lowercase + string.digits
 )
-# MSC4007 adds the + to the allowed characters.
-#
-# TODO If this was accepted, update the SSO code to support this, see the callers
-#      of map_username_to_mxid_localpart.
-extended_mxid_localpart_allowed_characters = mxid_localpart_allowed_characters | {"+"}
 
 # Guest user IDs are purely numeric.
 GUEST_USER_ID_PATTERN = re.compile(r"^\d+$")
 
 
-def contains_invalid_mxid_characters(
-    localpart: str, use_extended_character_set: bool
-) -> bool:
+def contains_invalid_mxid_characters(localpart: str) -> bool:
     """Check for characters not allowed in an mxid or groupid localpart
 
     Args:
@@ -366,12 +367,7 @@ def contains_invalid_mxid_characters(
     Returns:
         True if there are any naughty characters
     """
-    allowed_characters = (
-        extended_mxid_localpart_allowed_characters
-        if use_extended_character_set
-        else mxid_localpart_allowed_characters
-    )
-    return any(c not in allowed_characters for c in localpart)
+    return any(c not in MXID_LOCALPART_ALLOWED_CHARACTERS for c in localpart)
 
 
 UPPER_CASE_PATTERN = re.compile(b"[A-Z_]")
@@ -388,7 +384,7 @@ UPPER_CASE_PATTERN = re.compile(b"[A-Z_]")
 #    bytes rather than strings
 #
 NON_MXID_CHARACTER_PATTERN = re.compile(
-    ("[^%s]" % (re.escape("".join(mxid_localpart_allowed_characters - {"="})),)).encode(
+    ("[^%s]" % (re.escape("".join(MXID_LOCALPART_ALLOWED_CHARACTERS - {"="})),)).encode(
         "ascii"
     )
 )
