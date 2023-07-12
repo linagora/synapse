@@ -51,6 +51,8 @@ from synapse.rest.client import (
     room_keys,
     room_upgrade_rest_servlet,
     sendtodevice,
+    soft_logout,
+    soft_token_invalidate,
     sync,
     tags,
     thirdparty,
@@ -148,3 +150,5 @@ class ClientRestResource(JsonResource):
             mutual_rooms.register_servlets(hs, client_resource)
             login_token_request.register_servlets(hs, client_resource)
             rendezvous.register_servlets(hs, client_resource)
+            soft_logout.register_servlets(hs, client_resource)
+            soft_token_invalidate.register_servlets(hs, client_resource)
