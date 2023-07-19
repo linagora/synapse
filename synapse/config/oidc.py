@@ -126,6 +126,7 @@ OIDC_PROVIDER_CONFIG_SCHEMA = {
         "skip_verification": {"type": "boolean"},
         "backchannel_logout_enabled": {"type": "boolean"},
         "backchannel_logout_ignore_sub": {"type": "boolean"},
+        "backchannel_logout_is_soft": {"type": "boolean"},
         "user_profile_method": {
             "type": "string",
             "enum": ["auto", "userinfo_endpoint"],

@@ -1283,6 +1283,54 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
                     id="oidc",
                     with_localpart_template=True,
                     backchannel_logout_enabled=True,
+                    backchannel_logout_is_soft=True,
+                )
+            ]
+        }
+    )
+    def test_simple_logout_is_soft(self) -> None:
+        """
+        Soft-logout on back-channel option being enabled,
+        receiving a logout token should soft-logout the user
+        """
+        fake_oidc_server = self.helper.fake_oidc_server()
+        user = "john"
+
+        login_resp, first_grant = self.helper.login_via_oidc(
+            fake_oidc_server, user, with_sid=True
+        )
+        first_access_token: str = login_resp["access_token"]
+        self.helper.whoami(first_access_token, expect_code=HTTPStatus.OK)
+
+        login_resp, second_grant = self.helper.login_via_oidc(
+            fake_oidc_server, user, with_sid=True
+        )
+        second_access_token: str = login_resp["access_token"]
+        self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
+
+        self.assertNotEqual(first_grant.sid, second_grant.sid)
+        self.assertEqual(first_grant.userinfo["sub"], second_grant.userinfo["sub"])
+
+        # Logging out of the first session
+        logout_token = fake_oidc_server.generate_logout_token(first_grant)
+        channel = self.submit_logout_token(logout_token)
+        self.assertEqual(channel.code, 200)
+
+        self.helper.whoami(first_access_token, expect_code=HTTPStatus.UNAUTHORIZED)
+        self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
+
+        # Logging out of the second session
+        logout_token = fake_oidc_server.generate_logout_token(second_grant)
+        channel = self.submit_logout_token(logout_token)
+        self.assertEqual(channel.code, 200)
+
+    @override_config(
+        {
+            "oidc_providers": [
+                oidc_config(
+                    id="oidc",
+                    with_localpart_template=True,
+                    backchannel_logout_enabled=True,
                 )
             ]
         }

@@ -62,7 +62,7 @@ class InvalidateTokenRestServlet(RestServlet):
         self._auth_handler = hs.get_auth_handler()
 
     async def on_POST(self, request: SynapseRequest) -> Tuple[int, JsonDict]:
-        """Causes the token validity tine to set to 0.
+        """Causes the token validity time to set to current clock time.
 
         Returns:
         200, {}
@@ -73,7 +73,9 @@ class InvalidateTokenRestServlet(RestServlet):
         access_token = self.auth.get_access_token_from_request(request)
 
         # Invalidate current access token only
-        await self.store.set_access_token_validity(access_token, access_id, 0)
+        await self.store.set_access_token_validity(access_token,
+                                                   access_id,
+                                                   self.clock.time_msec())
 
         return 200, {}
 
@@ -94,7 +96,10 @@ class InvalidateTokenAllRestServlet(RestServlet):
 
         # soft_token_invalidate all devices
         await self.store.user_set_account_tokens_validity(
-            user_id, validity_until_ms=0, except_token_id=None, device_id=None
+            user_id,
+            validity_until_ms=self.clock.time_msec(),
+            except_token_id=None,
+            device_id=None
         )
         return 200, {}
 
