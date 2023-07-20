@@ -126,7 +126,7 @@ OIDC_PROVIDER_CONFIG_SCHEMA = {
         "skip_verification": {"type": "boolean"},
         "backchannel_logout_enabled": {"type": "boolean"},
         "backchannel_logout_ignore_sub": {"type": "boolean"},
-        "backchannel_logout_is_soft": {"type": "boolean"},
+        #"backchannel_logout_is_soft": {"type": "boolean"},
         "user_profile_method": {
             "type": "string",
             "enum": ["auto", "userinfo_endpoint"],
@@ -302,7 +302,7 @@ def _parse_oidc_config_dict(
         backchannel_logout_ignore_sub=oidc_config.get(
             "backchannel_logout_ignore_sub", False
         ),
-        backchannel_logout_is_soft=oidc_config.get("backchannel_logout_is_soft", False),
+        #backchannel_logout_is_soft=oidc_config.get("backchannel_logout_is_soft", False),
         skip_verification=oidc_config.get("skip_verification", False),
         user_profile_method=oidc_config.get("user_profile_method", "auto"),
         allow_existing_users=oidc_config.get("allow_existing_users", False),
@@ -391,7 +391,7 @@ class OidcProviderConfig:
     backchannel_logout_ignore_sub: bool
 
     # Whether Synapse should consider backchannel logouts as soft-logouts.
-    backchannel_logout_is_soft: bool
+    #backchannel_logout_is_soft: bool
 
     # Whether to skip metadata verification
     skip_verification: bool
