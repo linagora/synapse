@@ -268,7 +268,7 @@ running with 'migrate_config'. See the README for more details.
 
         args += ["--config-path", config_path]
 
-    log("Starting omhx21-synapse with args " + " ".join(args))
+    log("Starting synapse with args " + " ".join(args))
 
     args = [sys.executable] + args
     if ownership is not None:

@@ -1316,8 +1316,9 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
         channel = self.submit_logout_token(logout_token)
         self.assertEqual(channel.code, 200)
 
-        first_attempt_json_body = self.helper.whoami(first_access_token,
-                                           expect_code=HTTPStatus.UNAUTHORIZED)
+        first_attempt_json_body = self.helper.whoami(
+            first_access_token, expect_code=HTTPStatus.UNAUTHORIZED
+        )
         self.assertEqual(first_attempt_json_body["soft_logout"], True)
         self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
 
@@ -1374,7 +1375,6 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
 
         # Now try to exchange the login token, it should fail.
         self.helper.login_via_token(login_token, 403)
-
 
     @override_config(
         {
@@ -1606,8 +1606,9 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
         channel = self.submit_logout_token(logout_token)
         self.assertEqual(channel.code, 200)
 
-        first_attempt_json_body = self.helper.whoami(first_access_token,
-                                          expect_code=HTTPStatus.UNAUTHORIZED)
+        first_attempt_json_body = self.helper.whoami(
+            first_access_token, expect_code=HTTPStatus.UNAUTHORIZED
+        )
         self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
         self.assertEqual(first_attempt_json_body["soft_logout"], True)
 
@@ -1617,7 +1618,6 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
         self.assertEqual(channel.code, 200)
 
         second_attempt_json_body = self.helper.whoami(
-            second_access_token,
-            expect_code=HTTPStatus.UNAUTHORIZED
+            second_access_token, expect_code=HTTPStatus.UNAUTHORIZED
         )
         self.assertEqual(second_attempt_json_body["soft_logout"], True)

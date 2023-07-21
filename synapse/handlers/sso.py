@@ -1314,7 +1314,7 @@ class SsoHandler:
                 user_id,
                 validity_until_ms=self._clock.time_msec(),
                 except_token_id=None,
-                device_id=device_id
+                device_id=device_id,
             )
 
 

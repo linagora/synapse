@@ -1364,7 +1364,7 @@ class OidcProvider:
         finish_request(request)
 
     async def _handle_backchannel_soft_logout(
-        self, request: SynapseRequest, sid: str, expected_user_id: str | None = None
+        self, request: SynapseRequest, sid: str, expected_user_id: Optional[str] = None
     ) -> None:
         """Helper function called when handling an incoming request to
         /_synapse/client/oidc/backchannel_logout
@@ -1379,6 +1379,7 @@ class OidcProvider:
             auth_provider_session_id=sid,
             expected_user_id=expected_user_id,
         )
+
 
 class LogoutToken(JWTClaims):  # type: ignore[misc]
     """
