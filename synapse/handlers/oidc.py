@@ -1288,12 +1288,6 @@ class OidcProvider:
                 400, "OpenID Connect Back-Channel Logout is disabled for this provider"
             )
 
-        # Back-Channel Logout can be set to only soft-logout users in the config, hence
-        # this check. The aim of the config is not to surprise the user with a sudden
-        # hard logout deleting his devices and keys in the process, thus not allowing
-        # him to set a recovery method/recover keys/... as a result of this back-channel
-        # logout.
-
         metadata = await self.load_metadata()
 
         # As per OIDC Back-Channel Logout 1.0 sec. 2.4:
@@ -1346,12 +1340,16 @@ class OidcProvider:
                 self.idp_id, sub
             )
 
-        # Invalidate any running user-mapping sessions, in-flight login tokens and
-        # active devices
-
+        # Back-Channel Logout can be set to only soft-logout users in the config, hence
+        # this check. The aim of the config is not to surprise the user with a sudden
+        # hard logout deleting his devices and keys in the process, thus not allowing
+        # him to set a recovery method/recover keys/... as a result of this back-channel
+        # logout.
         if self._config.backchannel_logout_is_soft:
             await self._handle_backchannel_soft_logout(request, sid, expected_user_id)
         else:
+            # Invalidate any running user-mapping sessions, in-flight login tokens and
+            # active devices
             await self._sso_handler.revoke_sessions_for_provider_session_id(
                 auth_provider_id=self.idp_id,
                 auth_provider_session_id=sid,
