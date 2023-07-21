@@ -1311,18 +1311,22 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
         self.assertNotEqual(first_grant.sid, second_grant.sid)
         self.assertEqual(first_grant.userinfo["sub"], second_grant.userinfo["sub"])
 
-        # Logging out of the first session
+        # Soft-logging out of the first session
         logout_token = fake_oidc_server.generate_logout_token(first_grant)
         channel = self.submit_logout_token(logout_token)
         self.assertEqual(channel.code, 200)
 
-        self.helper.whoami(first_access_token, expect_code=HTTPStatus.UNAUTHORIZED)
+        first_attempt_json_body = self.helper.whoami(first_access_token,
+                                           expect_code=HTTPStatus.UNAUTHORIZED)
+        self.assertEqual(first_attempt_json_body["soft_logout"], True)
         self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
 
-        # Logging out of the second session
+        # Soft-logging out of the second session
         logout_token = fake_oidc_server.generate_logout_token(second_grant)
         channel = self.submit_logout_token(logout_token)
         self.assertEqual(channel.code, 200)
+
+        # Soft-logout option does not change behaviour during mapping or login
 
     @override_config(
         {
@@ -1371,53 +1375,6 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
         # Now try to exchange the login token, it should fail.
         self.helper.login_via_token(login_token, 403)
 
-    # @override_config(
-    #     {
-    #         "oidc_providers": [
-    #             oidc_config(
-    #                 id="oidc",
-    #                 with_localpart_template=True,
-    #                 backchannel_logout_enabled=True,
-    #                 backchannel_logout_is_soft=True,
-    #             )
-    #         ]
-    #     }
-    # )
-    # def test_logout_during_login_is_soft(self) -> None:
-    #     """
-    #     It should revoke login tokens when receiving a logout token
-    #     """
-    #     fake_oidc_server = self.helper.fake_oidc_server()
-    #     user = "john"
-    #
-    #     # Get an authentication, and logout before submitting the logout token
-    #     client_redirect_url = "https://x"
-    #     userinfo = {"sub": user}
-    #     channel, grant = self.helper.auth_via_oidc(
-    #         fake_oidc_server,
-    #         userinfo,
-    #         client_redirect_url,
-    #         with_sid=True,
-    #     )
-    #
-    #     # expect a confirmation page
-    #     self.assertEqual(channel.code, HTTPStatus.OK, channel.result)
-    #
-    #     # fish the matrix login token out of the body of the confirmation page
-    #     m = re.search(
-    #         'a href="%s.*loginToken=([^"]*)"' % (client_redirect_url,),
-    #         channel.text_body,
-    #     )
-    #     assert m, channel.text_body
-    #     login_token = m.group(1)
-    #
-    #     # Submit a logout
-    #     logout_token = fake_oidc_server.generate_logout_token(grant)
-    #     channel = self.submit_logout_token(logout_token)
-    #     self.assertEqual(channel.code, 200)
-    #
-    #     # Now try to exchange the login token, it should fail.
-    #     self.helper.login_via_token(login_token, 403)
 
     @override_config(
         {
@@ -1597,64 +1554,70 @@ class OidcBackchannelLogoutTests(unittest.HomeserverTestCase):
 
         self.helper.whoami(second_access_token, expect_code=HTTPStatus.UNAUTHORIZED)
 
-    # @override_config(
-    #     {
-    #         "oidc_providers": [
-    #             oidc_config(
-    #                 "first",
-    #                 issuer="https://first-issuer.com/",
-    #                 with_localpart_template=True,
-    #                 backchannel_logout_enabled=True,
-    #                 backchannel_logout_is_soft=True,
-    #             ),
-    #             oidc_config(
-    #                 "second",
-    #                 issuer="https://second-issuer.com/",
-    #                 with_localpart_template=True,
-    #                 backchannel_logout_enabled=True,
-    #                 backchannel_logout_is_soft=True,
-    #             ),
-    #         ]
-    #     }
-    # )
-    # def test_multiple_providers_is_soft(self) -> None:
-    #     """
-    #     It should be able to distinguish login tokens from two different IdPs
-    #     """
-    #     first_server = self.helper.fake_oidc_server(issuer="https://first-issuer.com/")
-    #     second_server = self.helper.fake_oidc_server(
-    #         issuer="https://second-issuer.com/"
-    #     )
-    #     user = "john"
-    #
-    #     login_resp, first_grant = self.helper.login_via_oidc(
-    #         first_server, user, with_sid=True, idp_id="oidc-first"
-    #     )
-    #     first_access_token: str = login_resp["access_token"]
-    #     self.helper.whoami(first_access_token, expect_code=HTTPStatus.OK)
-    #
-    #     login_resp, second_grant = self.helper.login_via_oidc(
-    #         second_server, user, with_sid=True, idp_id="oidc-second"
-    #     )
-    #     second_access_token: str = login_resp["access_token"]
-    #     self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
-    #
-    #     # `sid` in the fake providers are generated by a counter, so the first grant of
-    #     # each provider should give the same SID
-    #     self.assertEqual(first_grant.sid, second_grant.sid)
-    #     self.assertEqual(first_grant.userinfo["sub"], second_grant.userinfo["sub"])
-    #
-    #     # Logging out of the first session
-    #     logout_token = first_server.generate_logout_token(first_grant)
-    #     channel = self.submit_logout_token(logout_token)
-    #     self.assertEqual(channel.code, 200)
-    #
-    #     self.helper.whoami(first_access_token, expect_code=HTTPStatus.UNAUTHORIZED)
-    #     self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
-    #
-    #     # Logging out of the second session
-    #     logout_token = second_server.generate_logout_token(second_grant)
-    #     channel = self.submit_logout_token(logout_token)
-    #     self.assertEqual(channel.code, 200)
-    #
-    #     self.helper.whoami(second_access_token, expect_code=HTTPStatus.UNAUTHORIZED)
+    @override_config(
+        {
+            "oidc_providers": [
+                oidc_config(
+                    "first",
+                    issuer="https://first-issuer.com/",
+                    with_localpart_template=True,
+                    backchannel_logout_enabled=True,
+                    backchannel_logout_is_soft=True,
+                ),
+                oidc_config(
+                    "second",
+                    issuer="https://second-issuer.com/",
+                    with_localpart_template=True,
+                    backchannel_logout_enabled=True,
+                    backchannel_logout_is_soft=True,
+                ),
+            ]
+        }
+    )
+    def test_multiple_providers_is_soft(self) -> None:
+        """
+        It should be able to distinguish login tokens from two different IdPs
+        """
+        first_server = self.helper.fake_oidc_server(issuer="https://first-issuer.com/")
+        second_server = self.helper.fake_oidc_server(
+            issuer="https://second-issuer.com/"
+        )
+        user = "john"
+
+        login_resp, first_grant = self.helper.login_via_oidc(
+            first_server, user, with_sid=True, idp_id="oidc-first"
+        )
+        first_access_token: str = login_resp["access_token"]
+        self.helper.whoami(first_access_token, expect_code=HTTPStatus.OK)
+
+        login_resp, second_grant = self.helper.login_via_oidc(
+            second_server, user, with_sid=True, idp_id="oidc-second"
+        )
+        second_access_token: str = login_resp["access_token"]
+        self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
+
+        # `sid` in the fake providers are generated by a counter, so the first grant of
+        # each provider should give the same SID
+        self.assertEqual(first_grant.sid, second_grant.sid)
+        self.assertEqual(first_grant.userinfo["sub"], second_grant.userinfo["sub"])
+
+        # Logging out of the first session
+        logout_token = first_server.generate_logout_token(first_grant)
+        channel = self.submit_logout_token(logout_token)
+        self.assertEqual(channel.code, 200)
+
+        first_attempt_json_body = self.helper.whoami(first_access_token,
+                                          expect_code=HTTPStatus.UNAUTHORIZED)
+        self.helper.whoami(second_access_token, expect_code=HTTPStatus.OK)
+        self.assertEqual(first_attempt_json_body["soft_logout"], True)
+
+        # Logging out of the second session
+        logout_token = second_server.generate_logout_token(second_grant)
+        channel = self.submit_logout_token(logout_token)
+        self.assertEqual(channel.code, 200)
+
+        second_attempt_json_body = self.helper.whoami(
+            second_access_token,
+            expect_code=HTTPStatus.UNAUTHORIZED
+        )
+        self.assertEqual(second_attempt_json_body["soft_logout"], True)

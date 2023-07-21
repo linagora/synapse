@@ -1349,36 +1349,36 @@ class OidcProvider:
         # Invalidate any running user-mapping sessions, in-flight login tokens and
         # active devices
 
-        # if self._config.backchannel_logout_is_soft:
-        #     await self._handle_backchannel_soft_logout(request, sid, expected_user_id)
-        # else:
-        await self._sso_handler.revoke_sessions_for_provider_session_id(
-            auth_provider_id=self.idp_id,
-            auth_provider_session_id=sid,
-            expected_user_id=expected_user_id,
-        )
+        if self._config.backchannel_logout_is_soft:
+            await self._handle_backchannel_soft_logout(request, sid, expected_user_id)
+        else:
+            await self._sso_handler.revoke_sessions_for_provider_session_id(
+                auth_provider_id=self.idp_id,
+                auth_provider_session_id=sid,
+                expected_user_id=expected_user_id,
+            )
 
         request.setResponseCode(200)
         request.setHeader(b"Cache-Control", b"no-cache, no-store")
         request.setHeader(b"Pragma", b"no-cache")
         finish_request(request)
 
-    # async def _handle_backchannel_soft_logout(
-    #     self, request: SynapseRequest, sid: str, expected_user_id: str | None = None
-    # ) -> None:
-    #     """Helper function called when handling an incoming request to
-    #     /_synapse/client/oidc/backchannel_logout
-    #     ONLY when OIDC is set with parameter backchannel_logout_is_soft:true
-    #
-    #     Makes a soft_logout on all the user's tokens. (Does not delete devices)
-    #     """
-    #     # Invalidate any running user-mapping sessions, in-flight login tokens and
-    #     # active devices
-    #     await self._sso_handler.invalidate_sessions_for_provider_session_id(
-    #         auth_provider_id=self.idp_id,
-    #         auth_provider_session_id=sid,
-    #         expected_user_id=expected_user_id,
-    #     )
+    async def _handle_backchannel_soft_logout(
+        self, request: SynapseRequest, sid: str, expected_user_id: str | None = None
+    ) -> None:
+        """Helper function called when handling an incoming request to
+        /_synapse/client/oidc/backchannel_logout
+        ONLY when OIDC is set with parameter backchannel_logout_is_soft:true
+
+        Makes a soft_logout on all the user's tokens. (Does not delete devices)
+        """
+        # Invalidate any running user-mapping sessions, in-flight login tokens and
+        # active devices
+        await self._sso_handler.invalidate_sessions_for_provider_session_id(
+            auth_provider_id=self.idp_id,
+            auth_provider_session_id=sid,
+            expected_user_id=expected_user_id,
+        )
 
 class LogoutToken(JWTClaims):  # type: ignore[misc]
     """
