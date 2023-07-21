@@ -47,8 +47,8 @@ jobs:
         uses: docker/metadata-action@master
         with:
           images: |
-            docker.io/omhx21/synapse
-            ghcr.io/omhx21/synapse
+            docker.io/matrixdotorg/synapse
+            ghcr.io/matrix-org/synapse
           flavor: |
             latest=false
           tags: |
