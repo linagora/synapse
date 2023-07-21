@@ -126,6 +126,9 @@ class VersionsRestServlet(RestServlet):
                     "org.matrix.msc3981": self.config.experimental.msc3981_recurse_relations,
                     # Adds support for deleting account data.
                     "org.matrix.msc3391": self.config.experimental.msc3391_enabled,
+                    # Adds support for self-request-able soft_logout.
+                    "org.matrix.msc1466": self.config.experimental.msc1466_soft_logout
+                    is not None,
                 },
             },
         )
