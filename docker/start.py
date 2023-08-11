@@ -213,7 +213,7 @@ def main(args: List[str], environ: MutableMapping[str, str]) -> None:
     if mode == "generate":
         return run_generate_config(environ, ownership)
 
-    if mode == "migrate_config":
+    if mode == "migrate_config":generate"
         # generate a config based on environment vars.
         config_dir = environ.get("SYNAPSE_CONFIG_DIR", "/data")
         config_path = environ.get(
