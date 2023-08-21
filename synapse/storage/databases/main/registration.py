@@ -2677,6 +2677,24 @@ class RegistrationStore(StatsStore, RegistrationBackgroundUpdateStore):
 
         return await self.db_pool.runInteraction("user_set_account_tokens_validity", f)
 
+    async def set_access_token_validity(
+        self, token: str, token_id: int, validity_until_ms: int = 0
+    ) -> None:
+        assert validity_until_ms >= 0
+
+        def f(txn: LoggingTransaction) -> None:
+            self.db_pool.simple_update_txn(
+                txn,
+                table="access_tokens",
+                keyvalues={"id": token_id},
+                updatevalues={"valid_until_ms": validity_until_ms},
+            )
+            self._invalidate_cache_and_stream(
+                txn, self.get_user_by_access_token, (token,)
+            )
+
+        await self.db_pool.runInteraction("set_access_token_validity", f)
+
     async def delete_access_token(self, access_token: str) -> None:
         def f(txn: LoggingTransaction) -> None:
             self.db_pool.simple_delete_one_txn(
