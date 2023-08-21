@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 from twisted.internet import defer, reactor
 from twisted.internet.base import ReactorBase
 from twisted.internet.defer import Deferred
 from twisted.test.proto_helpers import MemoryReactor
 
 from synapse.server import HomeServer
-from synapse.storage.databases.main.lock import _LOCK_TIMEOUT_MS
+from synapse.storage.databases.main.lock import _LOCK_TIMEOUT_MS, _RENEWAL_INTERVAL_MS
 from synapse.util import Clock
 
 from tests import unittest
@@ -380,8 +381,8 @@ class ReadWriteLockTestCase(unittest.HomeserverTestCase):
         self.get_success(lock.__aenter__())
 
         # Wait for ages with the lock, we should not be able to get the lock.
-        self.reactor.advance(5 * _LOCK_TIMEOUT_MS / 1000)
-        self.pump()
+        for _ in range(0, 10):
+            self.reactor.advance((_RENEWAL_INTERVAL_MS / 1000))
 
         lock2 = self.get_success(
             self.store.try_acquire_read_write_lock("name", "key", write=True)
@@ -448,3 +449,55 @@ class ReadWriteLockTestCase(unittest.HomeserverTestCase):
         self.get_success(self.store._on_shutdown())
 
         self.assertEqual(self.store._live_read_write_lock_tokens, {})
+
+    def test_acquire_multiple_locks(self) -> None:
+        """Tests that acquiring multiple locks at once works."""
+
+        # Take out multiple locks and ensure that we can't get those locks out
+        # again.
+        lock = self.get_success(
+            self.store.try_acquire_multi_read_write_lock(
+                [("name1", "key1"), ("name2", "key2")], write=True
+            )
+        )
+        self.assertIsNotNone(lock)
+
+        assert lock is not None
+        self.get_success(lock.__aenter__())
+
+        lock2 = self.get_success(
+            self.store.try_acquire_read_write_lock("name1", "key1", write=True)
+        )
+        self.assertIsNone(lock2)
+
+        lock3 = self.get_success(
+            self.store.try_acquire_read_write_lock("name2", "key2", write=False)
+        )
+        self.assertIsNone(lock3)
+
+        # Overlapping locks attempts will fail, and won't lock any locks.
+        lock4 = self.get_success(
+            self.store.try_acquire_multi_read_write_lock(
+                [("name1", "key1"), ("name3", "key3")], write=True
+            )
+        )
+        self.assertIsNone(lock4)
+
+        lock5 = self.get_success(
+            self.store.try_acquire_read_write_lock("name3", "key3", write=True)
+        )
+        self.assertIsNotNone(lock5)
+        assert lock5 is not None
+        self.get_success(lock5.__aenter__())
+        self.get_success(lock5.__aexit__(None, None, None))
+
+        # Once we release the lock we can take out the locks again.
+        self.get_success(lock.__aexit__(None, None, None))
+
+        lock6 = self.get_success(
+            self.store.try_acquire_read_write_lock("name1", "key1", write=True)
+        )
+        self.assertIsNotNone(lock6)
+        assert lock6 is not None
+        self.get_success(lock6.__aenter__())
+        self.get_success(lock6.__aexit__(None, None, None))

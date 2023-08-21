@@ -24,6 +24,7 @@ from synapse.api.errors import SynapseError
 from synapse.api.filtering import Filter
 from synapse.events.utils import SerializeEventConfig
 from synapse.handlers.room import ShutdownRoomResponse
+from synapse.handlers.worker_lock import NEW_EVENT_DURING_PURGE_LOCK_NAME
 from synapse.logging.opentracing import trace
 from synapse.metrics.background_process_metrics import run_as_background_process
 from synapse.rest.admin._base import assert_user_is_admin
@@ -44,6 +45,12 @@ logger = logging.getLogger(__name__)
 # backfill and try to fill in the history. This is an arbitrarily picked number so feel
 # free to tune it in the future.
 BACKFILL_BECAUSE_TOO_MANY_GAPS_THRESHOLD = 3
+
+
+# This is used to avoid purging a room several time at the same moment,
+# and also paginating during a purge. Pagination can trigger backfill,
+# which would create old events locally, and would potentially clash with the room delete.
+PURGE_PAGINATION_LOCK_NAME = "purge_pagination_lock"
 
 
 @attr.s(slots=True, auto_attribs=True)
@@ -142,6 +149,7 @@ class PaginationHandler:
         self._server_name = hs.hostname
         self._room_shutdown_handler = hs.get_room_shutdown_handler()
         self._relations_handler = hs.get_relations_handler()
+        self._worker_locks = hs.get_worker_locks_handler()
 
         self.pagination_lock = ReadWriteLock()
         # IDs of rooms in which there currently an active purge *or delete* operation.
@@ -356,7 +364,9 @@ class PaginationHandler:
         """
         self._purges_in_progress_by_room.add(room_id)
         try:
-            async with self.pagination_lock.write(room_id):
+            async with self._worker_locks.acquire_read_write_lock(
+                PURGE_PAGINATION_LOCK_NAME, room_id, write=True
+            ):
                 await self._storage_controllers.purge_events.purge_history(
                     room_id, token, delete_local_events
                 )
@@ -412,7 +422,13 @@ class PaginationHandler:
             room_id: room to be purged
             force: set true to skip checking for joined users.
         """
-        async with self.pagination_lock.write(room_id):
+        async with self._worker_locks.acquire_multi_read_write_lock(
+            [
+                (PURGE_PAGINATION_LOCK_NAME, room_id),
+                (NEW_EVENT_DURING_PURGE_LOCK_NAME, room_id),
+            ],
+            write=True,
+        ):
             # first check that we have no users in this room
             if not force:
                 joined = await self.store.is_host_joined(room_id, self._server_name)
@@ -471,7 +487,9 @@ class PaginationHandler:
 
         room_token = from_token.room_key
 
-        async with self.pagination_lock.read(room_id):
+        async with self._worker_locks.acquire_read_write_lock(
+            PURGE_PAGINATION_LOCK_NAME, room_id, write=False
+        ):
             (membership, member_event_id) = (None, None)
             if not use_admin_priviledge:
                 (
@@ -747,7 +765,9 @@ class PaginationHandler:
 
         self._purges_in_progress_by_room.add(room_id)
         try:
-            async with self.pagination_lock.write(room_id):
+            async with self._worker_locks.acquire_read_write_lock(
+                PURGE_PAGINATION_LOCK_NAME, room_id, write=True
+            ):
                 self._delete_by_id[delete_id].status = DeleteStatus.STATUS_SHUTTING_DOWN
                 self._delete_by_id[
                     delete_id

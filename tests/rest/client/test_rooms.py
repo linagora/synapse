@@ -711,7 +711,7 @@ class RoomsCreateTestCase(RoomBase):
         self.assertEqual(HTTPStatus.OK, channel.code, channel.result)
         self.assertTrue("room_id" in channel.json_body)
         assert channel.resource_usage is not None
-        self.assertEqual(30, channel.resource_usage.db_txn_count)
+        self.assertEqual(32, channel.resource_usage.db_txn_count)
 
     def test_post_room_initial_state(self) -> None:
         # POST with initial_state config key, expect new room id
@@ -724,7 +724,7 @@ class RoomsCreateTestCase(RoomBase):
         self.assertEqual(HTTPStatus.OK, channel.code, channel.result)
         self.assertTrue("room_id" in channel.json_body)
         assert channel.resource_usage is not None
-        self.assertEqual(32, channel.resource_usage.db_txn_count)
+        self.assertEqual(34, channel.resource_usage.db_txn_count)
 
     def test_post_room_visibility_key(self) -> None:
         # POST with visibility config key, expect new room id
@@ -1362,7 +1362,7 @@ class RoomAppserviceTsParamTestCase(unittest.HomeserverTestCase):
 
         # Ensure the event was persisted with the correct timestamp.
         res = self.get_success(self.main_store.get_event(event_id))
-        self.assertEquals(ts, res.origin_server_ts)
+        self.assertEqual(ts, res.origin_server_ts)
 
     def test_send_state_event_ts(self) -> None:
         """Test sending a state event with a custom timestamp."""
@@ -1384,7 +1384,7 @@ class RoomAppserviceTsParamTestCase(unittest.HomeserverTestCase):
 
         # Ensure the event was persisted with the correct timestamp.
         res = self.get_success(self.main_store.get_event(event_id))
-        self.assertEquals(ts, res.origin_server_ts)
+        self.assertEqual(ts, res.origin_server_ts)
 
     def test_send_membership_event_ts(self) -> None:
         """Test sending a membership event with a custom timestamp."""
@@ -1406,7 +1406,7 @@ class RoomAppserviceTsParamTestCase(unittest.HomeserverTestCase):
 
         # Ensure the event was persisted with the correct timestamp.
         res = self.get_success(self.main_store.get_event(event_id))
-        self.assertEquals(ts, res.origin_server_ts)
+        self.assertEqual(ts, res.origin_server_ts)
 
 
 class RoomJoinRatelimitTestCase(RoomBase):
