@@ -125,7 +125,7 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/element-hq/synapse" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                     </div>
@@ -158,9 +158,8 @@
                         </div>
 
                         <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>Welcome to the documentation repository for Synapse, a 
-<a href="https://matrix.org">Matrix</a> homeserver implementation developed by the matrix.org core 
-team.</p>
+<p>Welcome to the documentation repository for Synapse, a
+<a href="https://matrix.org">Matrix</a> homeserver implementation developed by Element.</p>
 <h2 id="installing-and-using-synapse"><a class="header" href="#installing-and-using-synapse">Installing and using Synapse</a></h2>
 <p>This documentation covers topics for <strong>installation</strong>, <strong>configuration</strong> and
 <strong>maintenance</strong> of your Synapse process:</p>
@@ -199,7 +198,7 @@ following documentation:</p>
 <li>
 <p>Read the <a href="development/contributing_guide.html">Contributing Guide</a>. It is meant
 to walk new contributors through the process of developing and submitting a
-change to the Synapse codebase (which is <a href="https://github.com/matrix-org/synapse">hosted on
+change to the Synapse codebase (which is <a href="https://github.com/element-hq/synapse">hosted on
 GitHub</a>).</p>
 </li>
 <li>
@@ -209,9 +208,9 @@ how to <a href="development/contributing_guide.html#run-the-linters">lint</a> an
 <a href="development/contributing_guide.html#8-test-test-test">test</a> your code.</p>
 </li>
 <li>
-<p>Look at <a href="https://github.com/matrix-org/synapse/issues">the issue tracker</a> for
+<p>Look at <a href="https://github.com/element-hq/synapse/issues">the issue tracker</a> for
 bugs to fix or features to add. If you're new, it may be best to start with
-those labeled <a href="https://github.com/matrix-org/synapse/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first
+those labeled <a href="https://github.com/element-hq/synapse/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first
 issue</a>.</p>
 </li>
 <li>
@@ -227,17 +226,9 @@ do so!</p>
 </li>
 <li>
 <p>And finally, contribute to this documentation! The source for which is
-<a href="https://github.com/matrix-org/synapse/tree/develop/docs">located here</a>.</p>
+<a href="https://github.com/element-hq/synapse/tree/develop/docs">located here</a>.</p>
 </li>
 </ul>
-<h2 id="donating-to-synapse-development"><a class="header" href="#donating-to-synapse-development">Donating to Synapse development</a></h2>
-<p>Want to help keep Synapse going but don't know how to code? Synapse is a
-<a href="https://matrix.org">Matrix.org Foundation</a> project. Consider becoming a
-supporter on <a href="https://liberapay.com/matrixdotorg">Liberapay</a>,
-<a href="https://patreon.com/matrixdotorg">Patreon</a> or through
-<a href="https://paypal.me/matrixdotorg">PayPal</a> via a one-time donation.</p>
-<p>If you are an organisation or enterprise and would like to sponsor development,
-reach out to us over email at: support (at) matrix.org</p>
 <h2 id="reporting-a-security-vulnerability"><a class="header" href="#reporting-a-security-vulnerability">Reporting a security vulnerability</a></h2>
 <p>If you've found a security issue in Synapse or any other Matrix.org Foundation
 project, please report it to us in accordance with our <a href="https://www.matrix.org/security-disclosure-policy/">Security Disclosure
@@ -261,9 +252,9 @@ that your email address is probably <code>user@example.com</code> rather than
 for most users.</p>
 <h4 id="docker-images-and-ansible-playbooks"><a class="header" href="#docker-images-and-ansible-playbooks">Docker images and Ansible playbooks</a></h4>
 <p>There is an official synapse image available at
-<a href="https://hub.docker.com/r/matrixdotorg/synapse">https://hub.docker.com/r/matrixdotorg/synapse</a> or at <a href="https://ghcr.io/matrix-org/synapse"><code>ghcr.io/matrix-org/synapse</code></a>
+<a href="https://hub.docker.com/r/matrixdotorg/synapse">https://hub.docker.com/r/matrixdotorg/synapse</a> or at <a href="https://ghcr.io/element-hq/synapse"><code>ghcr.io/element-hq/synapse</code></a>
 which can be used with the docker-compose file available at
-<a href="https://github.com/matrix-org/synapse/tree/develop/contrib/docker">contrib/docker</a>.
+<a href="https://github.com/element-hq/synapse/tree/develop/contrib/docker">contrib/docker</a>.
 Further information on this including configuration options is available in the README
 on hub.docker.com.</p>
 <p>Alternatively, Andreas Peters (previously Silvio Fricke) has contributed a
@@ -280,6 +271,7 @@ For more details, see
 <p>Matrix.org provides Debian/Ubuntu packages of Synapse, for the amd64
 architecture via <a href="https://packages.matrix.org/debian/">https://packages.matrix.org/debian/</a>.</p>
 <p>To install the latest release:</p>
+<p>TODO UPDATE ALL THIS</p>
 <pre><code class="language-sh">sudo apt install -y lsb-release wget apt-transport-https
 sudo wget -O /usr/share/keyrings/matrix-org-archive-keyring.gpg https://packages.matrix.org/debian/matrix-org-archive-keyring.gpg
 echo &quot;deb [signed-by=/usr/share/keyrings/matrix-org-archive-keyring.gpg] https://packages.matrix.org/debian/ $(lsb_release -cs) main&quot; |
@@ -416,9 +408,9 @@ or not to report usage statistics (hostname, Synapse version, uptime, total
 users, etc.) to the developers via the <code>--report-stats</code> argument.</p>
 <p>This command will generate you a config file that you can then customise, but it will
 also generate a set of keys for you. These keys will allow your homeserver to
-identify itself to other homeserver, so don't lose or delete them. It would be
+identify itself to other homeservers, so don't lose or delete them. It would be
 wise to back them up somewhere safe. (If, for whatever reason, you do need to
-change your homeserver's keys, you may find that other homeserver have the
+change your homeserver's keys, you may find that other homeservers have the
 old key cached. If you update the signing key, you should change the name of the
 key in the <code>&lt;server name&gt;.signing.key</code> file (the second word) to something
 different. See the <a href="https://matrix.org/docs/spec/server_server/latest.html#retrieving-server-keys">spec</a> for more information on key management).</p>
@@ -459,6 +451,15 @@ sudo dnf groupinstall &quot;Development Tools&quot;
 <p>Some extra dependencies may be needed. You can use Homebrew (https://brew.sh) for them.</p>
 <p>You may need to install icu, and make the icu binaries and libraries accessible.
 Please follow <a href="https://pypi.org/project/PyICU/">the official instructions of PyICU</a> to do so.</p>
+<p>If you're struggling to get icu discovered, and see:</p>
+<pre><code>  RuntimeError:
+  Please install pkg-config on your system or set the ICU_VERSION environment
+  variable to the version of ICU you have installed.
+</code></pre>
+<p>despite it being installed and having your <code>PATH</code> updated, you can omit this dependency by
+not specifying <code>--extras all</code> to <code>poetry</code>. If using postgres, you can install Synapse via
+<code>poetry install --extras saml2 --extras oidc --extras postgres --extras opentracing --extras redis --extras sentry</code>.
+ICU is not a hard dependency on getting a working installation.</p>
 <p>On ARM-based Macs you may also need to install libjpeg and libpq:</p>
 <pre><code class="language-sh"> brew install jpeg libpq
 </code></pre>
@@ -546,11 +547,11 @@ TLS-enabled listener like so:</li>
 <ul>
 <li>
 <p>You will also need to add the options <code>tls_certificate_path</code> and
-<code>tls_private_key_path</code>. to your configuration file. You will need to manage provisioning of 
+<code>tls_private_key_path</code>. to your configuration file. You will need to manage provisioning of
 these certificates yourself.</p>
 </li>
 <li>
-<p>You can find more information about these options as well as how to configure synapse in the 
+<p>You can find more information about these options as well as how to configure synapse in the
 <a href="setup/../usage/configuration/config_documentation.html">configuration manual</a>.</p>
 <p>If you are using your own certificate, be sure to use a <code>.pem</code> file that
 includes the full certificate chain including any intermediate certificates
@@ -779,7 +780,7 @@ can read more about that <a href="https://www.postgresql.org/docs/10/kernel-reso
 <h2 id="porting-from-sqlite"><a class="header" href="#porting-from-sqlite">Porting from SQLite</a></h2>
 <h3 id="overview"><a class="header" href="#overview">Overview</a></h3>
 <p>The script <code>synapse_port_db</code> allows porting an existing synapse server
-backed by SQLite to using PostgreSQL. This is done in as a two phase
+backed by SQLite to using PostgreSQL. This is done as a two phase
 process:</p>
 <ol>
 <li>Copy the existing SQLite database to a separate location and run
@@ -819,7 +820,7 @@ simply run:</p>
 <pre><code class="language-sh">synapse_port_db --sqlite-database homeserver.db.snapshot \
     --postgres-config homeserver-postgres.yaml
 </code></pre>
-<p>The flag <code>--curses</code> displays a coloured curses progress UI.</p>
+<p>The flag <code>--curses</code> displays a coloured curses progress UI. (NOTE: if your terminal is too small the script will error out)</p>
 <p>If the script took a long time to complete, or time has otherwise passed
 since the original snapshot was taken, repeat the previous steps with a
 newer snapshot.</p>
@@ -925,12 +926,12 @@ reverse proxy is using.</p>
 <p><strong>NOTE</strong>: You only need one of these.</p>
 <h3 id="nginx"><a class="header" href="#nginx">nginx</a></h3>
 <pre><code class="language-nginx">server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     # For the federation port
-    listen 8448 ssl http2 default_server;
-    listen [::]:8448 ssl http2 default_server;
+    listen 8448 ssl default_server;
+    listen [::]:8448 ssl default_server;
 
     server_name matrix.example.com;
 
@@ -1034,6 +1035,24 @@ backend matrix
 <p>Example configuration, if using a UNIX socket. The configuration lines regarding the frontends do not need to be modified.</p>
 <pre><code>backend matrix
   server matrix unix@/run/synapse/main_public.sock
+</code></pre>
+<p>Example configuration when using a single port for both client and federation traffic.</p>
+<pre><code>frontend https
+  bind *:443,[::]:443 ssl crt /etc/ssl/haproxy/ strict-sni alpn h2,http/1.1
+  http-request set-header X-Forwarded-Proto https if { ssl_fc }
+  http-request set-header X-Forwarded-Proto http  if !{ ssl_fc }
+  http-request set-header X-Forwarded-For %[src]
+
+  acl matrix-host hdr(host) -i matrix.example.com matrix.example.com:443
+  acl matrix-sni  ssl_fc_sni   matrix.example.com
+  acl matrix-path path_beg     /_matrix
+  acl matrix-path path_beg     /_synapse/client
+
+  use_backend matrix if matrix-host matrix-path
+  use_backend matrix if matrix-sni
+
+backend matrix
+  server matrix 127.0.0.1:8008
 </code></pre>
 <p><a href="delegate.html">Delegation</a> example:</p>
 <pre><code>frontend https
@@ -1453,8 +1472,8 @@ basic installation and got it working.</p>
 <p>NB: If your TLS certificate was provided by Let's Encrypt, TLS/DTLS will
 not work with any Matrix client that uses Chromium's WebRTC library. This
 currently includes Element Android &amp; iOS; for more details, see their
-<a href="https://github.com/vector-im/element-android/issues/1533">respective</a>
-<a href="https://github.com/vector-im/element-ios/issues/2712">issues</a> as well as the underlying
+<a href="https://github.com/element-hq/element-android/issues/1533">respective</a>
+<a href="https://github.com/element-hq/element-ios/issues/2712">issues</a> as well as the underlying
 <a href="https://bugs.chromium.org/p/webrtc/issues/detail?id=11710">WebRTC issue</a>.
 Consider using a ZeroSSL certificate for your TURN server as a working alternative.</p>
 </li>
@@ -1608,8 +1627,8 @@ basic installation and got it working.</p>
 <p>NB: If your TLS certificate was provided by Let's Encrypt, TLS/DTLS will
 not work with any Matrix client that uses Chromium's WebRTC library. This
 currently includes Element Android &amp; iOS; for more details, see their
-<a href="https://github.com/vector-im/element-android/issues/1533">respective</a>
-<a href="https://github.com/vector-im/element-ios/issues/2712">issues</a> as well as the underlying
+<a href="https://github.com/element-hq/element-android/issues/1533">respective</a>
+<a href="https://github.com/element-hq/element-ios/issues/2712">issues</a> as well as the underlying
 <a href="https://bugs.chromium.org/p/webrtc/issues/detail?id=11710">WebRTC issue</a>.
 Consider using a ZeroSSL certificate for your TURN server as a working alternative.</p>
 </li>
@@ -1800,28 +1819,54 @@ dpkg -i matrix-synapse-py3_1.3.0+stretch1_amd64.deb
 </code></pre>
 </li>
 </ul>
-<p>Generally Synapse database schemas are compatible across multiple versions, once
-a version of Synapse is deployed you may not be able to rollback automatically.
+<p>Generally Synapse database schemas are compatible across multiple versions, but once
+a version of Synapse is deployed you may not be able to roll back automatically.
 The following table gives the version ranges and the earliest version they can
 be rolled back to. E.g. Synapse versions v1.58.0 through v1.61.1 can be rolled
-back safely to v1.57.0, but starting with v1.62.0 it is only safe to rollback to
+back safely to v1.57.0, but starting with v1.62.0 it is only safe to roll back to
 v1.61.0.</p>
 <table><thead><tr><th>Versions</th><th>Compatible version</th></tr></thead><tbody>
 </tbody></table>
-<h1 id="upgrading-to-v1930"><a class="header" href="#upgrading-to-v1930">Upgrading to v1.93.0</a></h1>
+<h2 id="upgrading-from-a-very-old-version"><a class="header" href="#upgrading-from-a-very-old-version">Upgrading from a very old version</a></h2>
+<p>You need to read all of the upgrade notes for each version between your current
+version and the latest so that you can update your dependencies, environment,
+config files, etc. if necessary. But you do not need to perform an
+upgrade to each individual version that was missed.</p>
+<p>We do not have a list of which versions must be installed. Instead, we recommend
+that you upgrade through each incompatible database schema version, which would
+give you the ability to roll back the maximum number of versions should anything
+go wrong. See <a href="upgrade.html#rolling-back-to-older-versions">Rolling back to older versions</a>
+above.</p>
+<p>Additionally, new versions of Synapse will occasionally run database migrations
+and background updates to update the database. Synapse will not start until
+database migrations are complete. You should wait until background updates from
+each upgrade are complete before moving on to the next upgrade, to avoid
+stacking them up. You can monitor the currently running background updates with
+<a href="usage/administration/admin_api/background_updates.html#status">the Admin API</a>.</p>
+<h1 id="upgrading-to-v11060"><a class="header" href="#upgrading-to-v11060">Upgrading to v1.106.0</a></h1>
 <h2 id="minimum-supported-rust-version"><a class="header" href="#minimum-supported-rust-version">Minimum supported Rust version</a></h2>
+<p>The minimum supported Rust version has been increased from v1.65.0 to v1.66.0.
+Users building from source will need to ensure their <code>rustc</code> version is up to
+date.</p>
+<h1 id="upgrading-to-v11000"><a class="header" href="#upgrading-to-v11000">Upgrading to v1.100.0</a></h1>
+<h2 id="minimum-supported-rust-version-1"><a class="header" href="#minimum-supported-rust-version-1">Minimum supported Rust version</a></h2>
+<p>The minimum supported Rust version has been increased from v1.61.0 to v1.65.0.
+Users building from source will need to ensure their <code>rustc</code> version is up to
+date.</p>
+<h1 id="upgrading-to-v1930"><a class="header" href="#upgrading-to-v1930">Upgrading to v1.93.0</a></h1>
+<h2 id="minimum-supported-rust-version-2"><a class="header" href="#minimum-supported-rust-version-2">Minimum supported Rust version</a></h2>
 <p>The minimum supported Rust version has been increased from v1.60.0 to v1.61.0.
 Users building from source will need to ensure their <code>rustc</code> version is up to
 date.</p>
 <h1 id="upgrading-to-v1900"><a class="header" href="#upgrading-to-v1900">Upgrading to v1.90.0</a></h1>
 <h2 id="app-service-query-parameter-authorization-is-now-a-configuration-option"><a class="header" href="#app-service-query-parameter-authorization-is-now-a-configuration-option">App service query parameter authorization is now a configuration option</a></h2>
 <p>Synapse v1.81.0 deprecated application service authorization via query parameters as this is
-considered insecure - and from Synapse v1.71.0 forwards the application service token has also been sent via 
+considered insecure - and from Synapse v1.71.0 forwards the application service token has also been sent via
 <a href="https://spec.matrix.org/v1.6/application-service-api/#authorization">the <code>Authorization</code> header</a>], making the insecure
-query parameter authorization redundant. Since removing the ability to continue to use query parameters could break 
-backwards compatibility it has now been put behind a configuration option, <code>use_appservice_legacy_authorization</code>.<br />
-This option defaults to false, but can be activated by adding </p>
-<pre><code class="language-yaml">use_appservice_legacy_authorization: true 
+query parameter authorization redundant. Since removing the ability to continue to use query parameters could break
+backwards compatibility it has now been put behind a configuration option, <code>use_appservice_legacy_authorization</code>.
+This option defaults to false, but can be activated by adding</p>
+<pre><code class="language-yaml">use_appservice_legacy_authorization: true
 </code></pre>
 <p>to your configuration.</p>
 <h1 id="upgrading-to-v1890"><a class="header" href="#upgrading-to-v1890">Upgrading to v1.89.0</a></h1>
@@ -1840,16 +1885,16 @@ packages or Docker images, no action is required.</p>
 <p>As mentioned previously in <a href="upgrade.html#upgrading-to-v1840">Upgrading to v1.84.0</a>, the following deprecated settings
 are being removed in this release of Synapse:</p>
 <ul>
-<li><a href="https://matrix-org.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_host"><code>worker_replication_host</code></a></li>
-<li><a href="https://matrix-org.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_http_port"><code>worker_replication_http_port</code></a></li>
-<li><a href="https://matrix-org.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_http_tls"><code>worker_replication_http_tls</code></a></li>
+<li><a href="https://element-hq.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_host"><code>worker_replication_host</code></a></li>
+<li><a href="https://element-hq.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_http_port"><code>worker_replication_http_port</code></a></li>
+<li><a href="https://element-hq.github.io/synapse/v1.86/usage/configuration/config_documentation.html#worker_replication_http_tls"><code>worker_replication_http_tls</code></a></li>
 </ul>
 <p>Please ensure that you have migrated to using <code>main</code> on your shared configuration's <code>instance_map</code>
 (or create one if necessary). This is required if you have <em><strong>any</strong></em> workers at all;
 administrators of single-process (monolith) installations don't need to do anything.</p>
 <p>For an illustrative example, please see <a href="upgrade.html#upgrading-to-v1840">Upgrading to v1.84.0</a> below.</p>
 <h1 id="upgrading-to-v1860"><a class="header" href="#upgrading-to-v1860">Upgrading to v1.86.0</a></h1>
-<h2 id="minimum-supported-rust-version-1"><a class="header" href="#minimum-supported-rust-version-1">Minimum supported Rust version</a></h2>
+<h2 id="minimum-supported-rust-version-3"><a class="header" href="#minimum-supported-rust-version-3">Minimum supported Rust version</a></h2>
 <p>The minimum supported Rust version has been increased from v1.58.1 to v1.60.0.
 Users building from source will need to ensure their <code>rustc</code> version is up to
 date.</p>
@@ -1929,7 +1974,7 @@ worker_listeners:
 worker_log_config: /etc/matrix-synapse/generic-worker-log.yaml
 
 </code></pre>
-<p>Notes: </p>
+<p>Notes:</p>
 <ul>
 <li><code>tls</code> is optional but mirrors the functionality of <code>worker_replication_http_tls</code></li>
 </ul>
@@ -1992,8 +2037,8 @@ and vice versa.</p>
 <p>Once all workers are upgraded to v1.76 (or downgraded to v1.75), account data
 and device replication will resume as normal.</p>
 <h2 id="minimum-version-of-poetry-is-now-132"><a class="header" href="#minimum-version-of-poetry-is-now-132">Minimum version of Poetry is now 1.3.2</a></h2>
-<p>The minimum supported version of Poetry is now 1.3.2 (previously 1.2.0, <a href="upgrade.html#upgrading-to-v1670">since 
-Synapse 1.67</a>). If you have used <code>poetry install</code> to 
+<p>The minimum supported version of Poetry is now 1.3.2 (previously 1.2.0, <a href="upgrade.html#upgrading-to-v1670">since
+Synapse 1.67</a>). If you have used <code>poetry install</code> to
 install Synapse from a source checkout, you should upgrade poetry: see its
 <a href="https://python-poetry.org/docs/#installation">installation instructions</a>.
 For all other installation methods, no acction is required.</p>
@@ -2089,7 +2134,7 @@ because current versions of Synapse emit both old and new names.</p>
 the names of Prometheus metrics.
 If you want to test your changes before legacy names are disabled by default,
 you may specify <code>enable_legacy_metrics: false</code> in your homeserver configuration.</p>
-<p>A list of affected metrics is available on the <a href="https://matrix-org.github.io/synapse/v1.69/metrics-howto.html?highlight=metrics%20deprecated#renaming-of-metrics--deprecation-of-old-names-in-12">Metrics How-to page</a>.</p>
+<p>A list of affected metrics is available on the <a href="https://element-hq.github.io/synapse/v1.69/metrics-howto.html?highlight=metrics%20deprecated#renaming-of-metrics--deprecation-of-old-names-in-12">Metrics How-to page</a>.</p>
 <h2 id="deprecation-of-the-generate_short_term_login_token-module-api-method"><a class="header" href="#deprecation-of-the-generate_short_term_login_token-module-api-method">Deprecation of the <code>generate_short_term_login_token</code> module API method</a></h2>
 <p>The following method of the module API has been deprecated, and is scheduled to
 be remove in v1.71.0:</p>
@@ -2129,7 +2174,7 @@ Synapse's database.</p>
 <h2 id="rust-requirement-when-building-from-source"><a class="header" href="#rust-requirement-when-building-from-source">Rust requirement when building from source.</a></h2>
 <p>Building from a source checkout of Synapse now requires a recent Rust compiler
 (currently Rust 1.58.1, but see also the
-<a href="https://matrix-org.github.io/synapse/latest/deprecation_policy.html">Platform Dependency Policy</a>).</p>
+<a href="https://element-hq.github.io/synapse/latest/deprecation_policy.html">Platform Dependency Policy</a>).</p>
 <p>Installations using</p>
 <ul>
 <li>Docker images <a href="https://hub.docker.com/r/matrixdotorg/synapse">from <code>matrixdotorg</code></a>,</li>
@@ -2177,7 +2222,7 @@ This removal was previously planned for Synapse 1.64.0, but was
 homeserver administrators more notice of the change.</p>
 <p>To continue to allow users to add email addresses to their homeserver accounts,
 and perform password resets, make sure that Synapse is configured with a working
-email server in the <a href="https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#email"><code>email</code> configuration
+email server in the <a href="https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#email"><code>email</code> configuration
 section</a>
 (including, at a minimum, a <code>notif_from</code> setting.)</p>
 <p>Specifying an <code>email</code> setting under <code>account_threepid_delegates</code> will now cause
@@ -2186,7 +2231,7 @@ an error at startup.</p>
 <h2 id="deprecation-of-the-ability-to-delegate-e-mail-verification-to-identity-servers"><a class="header" href="#deprecation-of-the-ability-to-delegate-e-mail-verification-to-identity-servers">Deprecation of the ability to delegate e-mail verification to identity servers</a></h2>
 <p>Synapse v1.66.0 will remove the ability to delegate the tasks of verifying email address ownership, and password reset confirmation, to an identity server.</p>
 <p>If you require your homeserver to verify e-mail addresses or to support password resets via e-mail, please configure your homeserver with SMTP access so that it can send e-mails on its own behalf.
-<a href="https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#email">Consult the configuration documentation for more information.</a></p>
+<a href="https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#email">Consult the configuration documentation for more information.</a></p>
 <p>The option that will be removed is <code>account_threepid_delegates.email</code>.</p>
 <h2 id="changes-to-the-event-replication-streams"><a class="header" href="#changes-to-the-event-replication-streams">Changes to the event replication streams</a></h2>
 <p>Synapse now includes a flag indicating if an event is an outlier when
@@ -2336,7 +2381,7 @@ has queries that can be used to check a database for this problem in advance.</p
 <p>The names of user devices are no longer visible to users on other homeservers by default.
 Device IDs are unaffected, as these are necessary to facilitate end-to-end encryption.</p>
 <p>To re-enable this functionality, set the
-<a href="https://matrix-org.github.io/synapse/v1.59/usage/configuration/config_documentation.html#federation"><code>allow_device_name_lookup_over_federation</code></a>
+<a href="https://element-hq.github.io/synapse/v1.59/usage/configuration/config_documentation.html#federation"><code>allow_device_name_lookup_over_federation</code></a>
 homeserver config option to <code>true</code>.</p>
 <h2 id="deprecation-of-the-synapseappappservice-and-synapseappuser_dir-worker-application-types"><a class="header" href="#deprecation-of-the-synapseappappservice-and-synapseappuser_dir-worker-application-types">Deprecation of the <code>synapse.app.appservice</code> and <code>synapse.app.user_dir</code> worker application types</a></h2>
 <p>The <code>synapse.app.appservice</code> worker application type allowed you to configure a
@@ -2421,7 +2466,7 @@ be disabled by default in Synapse v1.58.0.</p>
 <h2 id="change-in-behaviour-for-postgresql-databases-with-unsafe-locale"><a class="header" href="#change-in-behaviour-for-postgresql-databases-with-unsafe-locale">Change in behaviour for PostgreSQL databases with unsafe locale</a></h2>
 <p>Synapse now refuses to start when using PostgreSQL with non-<code>C</code> values for <code>COLLATE</code> and
 <code>CTYPE</code> unless the config flag <code>allow_unsafe_locale</code>, found in the database section of
-the configuration file, is set to <code>true</code>. See the <a href="https://matrix-org.github.io/synapse/latest/postgres.html#fixing-incorrect-collate-or-ctype">PostgreSQL documentation</a>
+the configuration file, is set to <code>true</code>. See the <a href="https://element-hq.github.io/synapse/latest/postgres.html#fixing-incorrect-collate-or-ctype">PostgreSQL documentation</a>
 for more information and instructions on how to fix a database with incorrect values.</p>
 <h1 id="upgrading-to-v1550"><a class="header" href="#upgrading-to-v1550">Upgrading to v1.55.0</a></h1>
 <h2 id="synctl-script-has-been-moved"><a class="header" href="#synctl-script-has-been-moved"><code>synctl</code> script has been moved</a></h2>
@@ -2451,7 +2496,7 @@ please upgrade Mjolnir to version 1.3.2 or later before upgrading Synapse.</p>
 <p>This release removes support for the <code>structured: true</code> logging configuration
 which was deprecated in Synapse v1.23.0. If your logging configuration contains
 <code>structured: true</code> then it should be modified based on the
-<a href="https://matrix-org.github.io/synapse/v1.56/structured_logging.html#upgrading-from-legacy-structured-logging-configuration">structured logging documentation</a>.</p>
+<a href="https://element-hq.github.io/synapse/v1.56/structured_logging.html#upgrading-from-legacy-structured-logging-configuration">structured logging documentation</a>.</p>
 <h1 id="upgrading-to-v1530"><a class="header" href="#upgrading-to-v1530">Upgrading to v1.53.0</a></h1>
 <h2 id="dropping-support-for-webclient-listeners-and-non-https-web_client_location"><a class="header" href="#dropping-support-for-webclient-listeners-and-non-https-web_client_location">Dropping support for <code>webclient</code> listeners and non-HTTP(S) <code>web_client_location</code></a></h2>
 <p>Per the deprecation notice in Synapse v1.51.0, listeners of type  <code>webclient</code>
@@ -2494,10 +2539,10 @@ becomes stable.</p>
 <h2 id="removal-of-user_may_create_room_with_invites"><a class="header" href="#removal-of-user_may_create_room_with_invites">Removal of <code>user_may_create_room_with_invites</code></a></h2>
 <p>As announced with the release of <a href="upgrade.html#deprecation-of-the-user_may_create_room_with_invites-module-callback">Synapse 1.47.0</a>,
 the deprecated <code>user_may_create_room_with_invites</code> module callback has been removed.</p>
-<p>Modules relying on it can instead implement <a href="https://matrix-org.github.io/synapse/latest/modules/spam_checker_callbacks.html#user_may_invite"><code>user_may_invite</code></a>
-and use the <a href="https://github.com/matrix-org/synapse/blob/872f23b95fa980a61b0866c1475e84491991fa20/synapse/module_api/__init__.py#L869-L876"><code>get_room_state</code></a>
+<p>Modules relying on it can instead implement <a href="https://element-hq.github.io/synapse/latest/modules/spam_checker_callbacks.html#user_may_invite"><code>user_may_invite</code></a>
+and use the <a href="https://github.com/element-hq/synapse/blob/872f23b95fa980a61b0866c1475e84491991fa20/synapse/module_api/__init__.py#L869-L876"><code>get_room_state</code></a>
 module API to infer whether the invite is happening while creating a room (see <a href="https://github.com/matrix-org/synapse-domain-rule-checker/blob/e7d092dd9f2a7f844928771dbfd9fd24c2332e48/synapse_domain_rule_checker/__init__.py#L56-L89">this function</a>
-as an example). Alternately, modules can also implement <a href="https://matrix-org.github.io/synapse/latest/modules/third_party_rules_callbacks.html#on_create_room"><code>on_create_room</code></a>.</p>
+as an example). Alternately, modules can also implement <a href="https://element-hq.github.io/synapse/latest/modules/third_party_rules_callbacks.html#on_create_room"><code>on_create_room</code></a>.</p>
 <h1 id="upgrading-to-v1520"><a class="header" href="#upgrading-to-v1520">Upgrading to v1.52.0</a></h1>
 <h2 id="twisted-security-release"><a class="header" href="#twisted-security-release">Twisted security release</a></h2>
 <p>Note that <a href="https://github.com/twisted/twisted/releases/tag/twisted-22.1.0">Twisted 22.1.0</a>
@@ -2527,12 +2572,12 @@ longer supported upstream.</p>
 <li><code>POST /_synapse/admin/v1/&lt;room_id&gt;/delete</code></li>
 </ul>
 <p>Any scripts still using the above APIs should be converted to use the
-<a href="https://matrix-org.github.io/synapse/latest/admin_api/rooms.html#delete-room-api">Delete Room API</a>.</p>
+<a href="https://element-hq.github.io/synapse/latest/admin_api/rooms.html#delete-room-api">Delete Room API</a>.</p>
 <h2 id="deprecation-of-the-user_may_create_room_with_invites-module-callback"><a class="header" href="#deprecation-of-the-user_may_create_room_with_invites-module-callback">Deprecation of the <code>user_may_create_room_with_invites</code> module callback</a></h2>
 <p>The <code>user_may_create_room_with_invites</code> is deprecated and will be removed in a future
 version of Synapse. Modules implementing this callback can instead implement
-<a href="https://matrix-org.github.io/synapse/latest/modules/spam_checker_callbacks.html#user_may_invite"><code>user_may_invite</code></a>
-and use the <a href="https://github.com/matrix-org/synapse/blob/872f23b95fa980a61b0866c1475e84491991fa20/synapse/module_api/__init__.py#L869-L876"><code>get_room_state</code></a>
+<a href="https://element-hq.github.io/synapse/latest/modules/spam_checker_callbacks.html#user_may_invite"><code>user_may_invite</code></a>
+and use the <a href="https://github.com/element-hq/synapse/blob/872f23b95fa980a61b0866c1475e84491991fa20/synapse/module_api/__init__.py#L869-L876"><code>get_room_state</code></a>
 module API method to infer whether the invite is happening in the context of creating a
 room.</p>
 <p>We plan to remove this callback in January 2022.</p>
@@ -2549,7 +2594,7 @@ no longer mirrored to storage providers. These two directories can be safely
 deleted from any configured storage providers to reclaim space.</p>
 <h1 id="upgrading-to-v1430"><a class="header" href="#upgrading-to-v1430">Upgrading to v1.43.0</a></h1>
 <h2 id="the-spaces-summary-apis-can-now-be-handled-by-workers"><a class="header" href="#the-spaces-summary-apis-can-now-be-handled-by-workers">The spaces summary APIs can now be handled by workers</a></h2>
-<p>The <a href="https://matrix-org.github.io/synapse/latest/workers.html#available-worker-applications">available worker applications documentation</a>
+<p>The <a href="https://element-hq.github.io/synapse/latest/workers.html#available-worker-applications">available worker applications documentation</a>
 has been updated to reflect that calls to the <code>/spaces</code>, <code>/hierarchy</code>, and
 <code>/summary</code> endpoints can now be routed to workers for both client API and
 federation requests.</p>
@@ -2562,11 +2607,11 @@ federation requests.</p>
 <li><code>POST /_synapse/admin/v1/shutdown_room/&lt;room_id&gt;</code></li>
 </ul>
 <p>Any scripts still using the above APIs should be converted to use the
-<a href="https://matrix-org.github.io/synapse/latest/admin_api/rooms.html#delete-room-api">Delete Room API</a>.</p>
+<a href="https://element-hq.github.io/synapse/latest/admin_api/rooms.html#delete-room-api">Delete Room API</a>.</p>
 <h2 id="user-interactive-authentication-fallback-templates-can-now-display-errors"><a class="header" href="#user-interactive-authentication-fallback-templates-can-now-display-errors">User-interactive authentication fallback templates can now display errors</a></h2>
 <p>This may affect you if you make use of custom HTML templates for the
-<a href="https://github.com/matrix-org/synapse/tree/develop/synapse/res/templates/recaptcha.html">reCAPTCHA (<code>synapse/res/templates/recaptcha.html</code>)</a> or
-<a href="https://github.com/matrix-org/synapse/tree/develop/synapse/res/templates/terms.html">terms (<code>synapse/res/templates/terms.html</code>)</a> fallback pages.</p>
+<a href="https://github.com/element-hq/synapse/tree/develop/synapse/res/templates/recaptcha.html">reCAPTCHA (<code>synapse/res/templates/recaptcha.html</code>)</a> or
+<a href="https://github.com/element-hq/synapse/tree/develop/synapse/res/templates/terms.html">terms (<code>synapse/res/templates/terms.html</code>)</a> fallback pages.</p>
 <p>The template is now provided an <code>error</code> variable if the authentication
 process failed. See the default templates linked above for an example.</p>
 <h2 id="removal-of-out-of-date-email-pushers"><a class="header" href="#removal-of-out-of-date-email-pushers">Removal of out-of-date email pushers</a></h2>
@@ -2601,11 +2646,11 @@ details.</p>
 configuration file are now deprecated. Server admins should use the new
 <code>templates.custom_template_directory</code> setting in the configuration file and use one single
 custom template directory for all aforementioned features. Template file names remain
-unchanged. See <a href="https://matrix-org.github.io/synapse/latest/templates.html">the related documentation</a>
+unchanged. See <a href="https://element-hq.github.io/synapse/latest/templates.html">the related documentation</a>
 for more information and examples.</p>
 <p>We plan to remove support for these settings in October 2021.</p>
 <h2 id="_synapseadminv1usersuseridmedia-must-be-handled-by-media-workers"><a class="header" href="#_synapseadminv1usersuseridmedia-must-be-handled-by-media-workers"><code>/_synapse/admin/v1/users/{userId}/media</code> must be handled by media workers</a></h2>
-<p>The <a href="https://matrix-org.github.io/synapse/latest/workers.html#synapseappmedia_repository">media repository worker documentation</a>
+<p>The <a href="https://element-hq.github.io/synapse/latest/workers.html#synapseappmedia_repository">media repository worker documentation</a>
 has been updated to reflect that calls to <code>/_synapse/admin/v1/users/{userId}/media</code>
 must now be handled by media repository workers. This is due to the new <code>DELETE</code> method
 of this endpoint modifying the media store.</p>
@@ -2917,7 +2962,7 @@ lock down external access to the Admin API endpoints.</p>
 <p>This release deprecates use of the <code>structured: true</code> logging
 configuration for structured logging. If your logging configuration
 contains <code>structured: true</code> then it should be modified based on the
-<a href="https://matrix-org.github.io/synapse/v1.56/structured_logging.html#upgrading-from-legacy-structured-logging-configuration">structured logging documentation</a>.</p>
+<a href="https://element-hq.github.io/synapse/v1.56/structured_logging.html#upgrading-from-legacy-structured-logging-configuration">structured logging documentation</a>.</p>
 <p>The <code>structured</code> and <code>drains</code> logging options are now deprecated and
 should be replaced by standard logging configuration of <code>handlers</code> and
 <code>formatters</code>.</p>
@@ -2950,7 +2995,7 @@ endpoint can be handled</p>
 update your reverse proxy configuration to reflect this change.</p>
 <h2 id="new-html-templates"><a class="header" href="#new-html-templates">New HTML templates</a></h2>
 <p>A new HTML template,
-<a href="https://github.com/matrix-org/synapse/blob/develop/synapse/res/templates/password_reset_confirmation.html">password_reset_confirmation.html</a>,
+<a href="https://github.com/element-hq/synapse/blob/develop/synapse/res/templates/password_reset_confirmation.html">password_reset_confirmation.html</a>,
 has been added to the <code>synapse/res/templates</code> directory. If you are
 using a custom template directory, you may want to copy the template
 over and modify it.</p>
@@ -2992,7 +3037,7 @@ updated.</p>
 <p>When setting up worker processes, we now recommend the use of a Redis
 server for replication. <strong>The old direct TCP connection method is
 deprecated and will be removed in a future release.</strong> See
-the <a href="https://matrix-org.github.io/synapse/v1.66/workers.html">worker documentation</a> for more details.</p>
+the <a href="https://element-hq.github.io/synapse/v1.66/workers.html">worker documentation</a> for more details.</p>
 <h1 id="upgrading-to-v1140"><a class="header" href="#upgrading-to-v1140">Upgrading to v1.14.0</a></h1>
 <p>This version includes a database update which is run as part of the
 upgrade, and which may take a couple of minutes in the case of a large
@@ -3030,7 +3075,7 @@ INSERT INTO background_updates (update_name, progress_json, depends_on) VALUES
 is configured to use SSO and a custom
 <code>sso_redirect_confirm_template_dir</code> configuration then these templates
 will need to be copied from
-<a href="https://github.com/matrix-org/synapse/tree/develop/synapse/res/templates"><code>synapse/res/templates</code></a> into that directory.</p>
+<a href="https://github.com/element-hq/synapse/tree/develop/synapse/res/templates"><code>synapse/res/templates</code></a> into that directory.</p>
 <h2 id="synapse-sso-plugins-method-deprecation"><a class="header" href="#synapse-sso-plugins-method-deprecation">Synapse SSO Plugins Method Deprecation</a></h2>
 <p>Plugins using the <code>complete_sso_login</code> method of
 <code>synapse.module_api.ModuleApi</code> should update to using the async/await
@@ -3161,7 +3206,7 @@ included.</p>
 <p>Synapse will expect these files to exist inside the configured template
 directory, and <strong>will fail to start</strong> if they are absent. To view the
 default templates, see
-<a href="https://github.com/matrix-org/synapse/tree/master/synapse/res/templates">synapse/res/templates</a>.</p>
+<a href="https://github.com/element-hq/synapse/tree/master/synapse/res/templates">synapse/res/templates</a>.</p>
 <h2 id="3pid-verification-changes"><a class="header" href="#3pid-verification-changes">3pid verification changes</a></h2>
 <p><strong>Note: As of this release, users will be unable to add phone numbers or
 email addresses to their accounts, without changes to the Synapse
@@ -3705,7 +3750,7 @@ in the HTTP library used by Synapse, 308 redirects are currently not followed by
 federating servers, which can cause <code>M_UNKNOWN</code> or <code>401 Unauthorized</code> errors. This
 may affect users who are redirecting apex-to-www (e.g. <code>example.com</code> -&gt; <code>www.example.com</code>),
 and especially users of the Kubernetes <em>Nginx Ingress</em> module, which uses 308 redirect
-codes by default. For those Kubernetes users, <a href="https://stackoverflow.com/a/52617528/5096871">this Stackoverflow post</a> 
+codes by default. For those Kubernetes users, <a href="https://stackoverflow.com/a/52617528/5096871">this Stackoverflow post</a>
 might be helpful. For other users, switching to a <code>301 Moved Permanently</code> code may be
 an option. 308 redirect codes will be supported properly in a future
 release of Synapse.</p>
@@ -3713,7 +3758,7 @@ release of Synapse.</p>
 <p>If you want to get up and running quickly with a trio of homeservers in a
 private federation, there is a script in the <code>demo</code> directory. This is mainly
 useful just for development purposes. See
-<a href="https://matrix-org.github.io/synapse/develop/development/demo.html">demo scripts</a>.</p>
+<a href="https://element-hq.github.io/synapse/develop/development/demo.html">demo scripts</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="configuration-2"><a class="header" href="#configuration-2">Configuration</a></h1>
 <p>This section contains information on tweaking Synapse via the various options in the configuration file. A configuration
 file should have been generated when you <a href="usage/configuration/../../setup/installation.html">installed Synapse</a>.</p>
@@ -4183,7 +4228,7 @@ for <a href="usage/configuration/../../workers.html">workers</a> and containers 
   # that unwraps TLS.
   #
   # If you plan to use a reverse proxy, please see
-  # https://matrix-org.github.io/synapse/latest/reverse_proxy.html.
+  # https://element-hq.github.io/synapse/latest/reverse_proxy.html.
   #
   - port: 8008
     tls: false
@@ -4214,7 +4259,7 @@ for <a href="usage/configuration/../../workers.html">workers</a> and containers 
   # conflicts, and providing enhanced security through system file permissions.
   #
   # Note that x_forwarded will default to true, when using a UNIX socket. Please see
-  # https://matrix-org.github.io/synapse/latest/reverse_proxy.html.
+  # https://element-hq.github.io/synapse/latest/reverse_proxy.html.
   #
   - path: /run/synapse/main_public.sock
     type: http
@@ -4311,8 +4356,8 @@ trailing 's'.</p>
 subjects. It defaults to 'Matrix'.</p>
 </li>
 <li>
-<p><code>enable_notifs</code>: Set to true to enable sending emails for messages that the user
-has missed. Disabled by default.</p>
+<p><code>enable_notifs</code>: Set to true to allow users to receive e-mail notifications. If this is not set,
+users can configure e-mail notifications but will not receive them. Disabled by default.</p>
 </li>
 <li>
 <p><code>notif_for_new_users</code>: Set to false to disable automatic subscription to email
@@ -4765,6 +4810,23 @@ the same whitelist.</p>
   - syd.example.com
 </code></pre>
 <hr />
+<h3 id="federation_whitelist_endpoint_enabled"><a class="header" href="#federation_whitelist_endpoint_enabled"><code>federation_whitelist_endpoint_enabled</code></a></h3>
+<p>Enables an endpoint for fetching the federation whitelist config.</p>
+<p>The request method and path is <code>GET /_synapse/client/v1/config/federation_whitelist</code>, and the
+response format is:</p>
+<pre><code class="language-json">{
+    &quot;whitelist_enabled&quot;: true,  // Whether the federation whitelist is being enforced
+    &quot;whitelist&quot;: [  // Which server names are allowed by the whitelist
+        &quot;example.com&quot;
+    ]
+}
+</code></pre>
+<p>If <code>whitelist_enabled</code> is <code>false</code> then the server is permitted to federate with all others.</p>
+<p>The endpoint requires authentication.</p>
+<p>Example configuration:</p>
+<pre><code class="language-yaml">federation_whitelist_endpoint_enabled: true
+</code></pre>
+<hr />
 <h3 id="federation_metrics_domains"><a class="header" href="#federation_metrics_domains"><code>federation_metrics_domains</code></a></h3>
 <p>Report prometheus metrics on the age of PDUs being sent to and received from
 the given domains. This can be used to give an idea of &quot;delay&quot; on inbound
@@ -4833,6 +4895,9 @@ for a given destination and the state of the backoff is stored in the database.<
 <h3 id="event_cache_size"><a class="header" href="#event_cache_size"><code>event_cache_size</code></a></h3>
 <p>The number of events to cache in memory. Defaults to 10K. Like other caches,
 this is affected by <code>caches.global_factor</code> (see below).</p>
+<p>For example, the default is 10K and the global_factor default is 0.5.</p>
+<p>Since 10K * 0.5 is 5K then the event cache size will be 5K.</p>
+<p>The cache affected by this configuration is named as &quot;<em>getEvent</em>&quot;.</p>
 <p>Note that this option is not part of the <code>caches</code> section.</p>
 <p>Example configuration:</p>
 <pre><code class="language-yaml">event_cache_size: 15K
@@ -4852,6 +4917,7 @@ set.</p>
 variable. Setting by environment variable takes priority over
 setting through the config file.</p>
 <p>Defaults to 0.5, which will halve the size of all caches.</p>
+<p>Note that changing this value also affects the HTTP connection pool.</p>
 </li>
 <li>
 <p><code>per_cache_factors</code>: A dictionary of cache name to cache factor for that individual
@@ -4925,7 +4991,7 @@ caches:
 </code></pre>
 <p>If you are running multiple workers, you must individually update the worker
 config file and send this signal to each worker process.</p>
-<p>If you're using the <a href="https://github.com/matrix-org/synapse/blob/develop/contrib/systemd/matrix-synapse.service">example systemd service</a>
+<p>If you're using the <a href="https://github.com/element-hq/synapse/blob/develop/contrib/systemd/matrix-synapse.service">example systemd service</a>
 file in Synapse's <code>contrib</code> directory, you can send a <code>SIGHUP</code> signal by using
 <code>systemctl reload matrix-synapse</code>.</p>
 <hr />
@@ -5868,6 +5934,10 @@ federated servers if <code>autocreate_auto_join_rooms_federated</code> is true (
 <li>&quot;trusted_private_chat&quot;: an invitation is required to join this room and the invitee is
 assigned a power level of 100 upon joining the room.</li>
 </ul>
+<p>Each preset will set up a room in the same manner as if it were provided as the <code>preset</code> parameter when
+calling the
+<a href="https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3createroom"><code>POST /_matrix/client/v3/createRoom</code></a>
+Client-Server API endpoint.</p>
 <p>If a value of &quot;private_chat&quot; or &quot;trusted_private_chat&quot; is used then
 <code>auto_join_mxid_localpart</code> must also be configured.</p>
 <p>Defaults to &quot;public_chat&quot;.</p>
@@ -5934,7 +6004,7 @@ existing sessions until they are refreshed.</p>
 <pre><code class="language-yaml">refreshable_access_token_lifetime: 10m
 </code></pre>
 <hr />
-<h3 id="refresh_token_lifetime-24h"><a class="header" href="#refresh_token_lifetime-24h"><code>refresh_token_lifetime: 24h</code></a></h3>
+<h3 id="refresh_token_lifetime"><a class="header" href="#refresh_token_lifetime"><code>refresh_token_lifetime</code></a></h3>
 <p>Time that a refresh token remains valid for (provided that it is not
 exchanged for another one first).
 This option can be used to automatically log-out inactive sessions.
@@ -6003,7 +6073,7 @@ Defaults to false.</p>
 <hr />
 <h3 id="sentry"><a class="header" href="#sentry"><code>sentry</code></a></h3>
 <p>Use this option to enable sentry integration. Provide the DSN assigned to you by sentry
-with the <code>dsn</code> setting. </p>
+with the <code>dsn</code> setting.</p>
 <p>An optional <code>environment</code> field can be used to specify an environment. This allows
 for log maintenance based on different environments, ensuring better organization
 and analysis..</p>
@@ -6540,6 +6610,10 @@ not included in <code>scopes</code>. Set to <code>userinfo_endpoint</code> to al
 userinfo endpoint.</p>
 </li>
 <li>
+<p><code>additional_authorization_parameters</code>: String to string dictionary that will be passed as
+additional parameters to the authorization grant URL.</p>
+</li>
+<li>
 <p><code>allow_existing_users</code>: set to true to allow a user logging in via OIDC to
 match a pre-existing account instead of failing. This could be used if
 switching from password logins to OIDC. Defaults to false.</p>
@@ -6671,6 +6745,8 @@ claim MUST contain &quot;admin&quot;.</p>
     token_endpoint: &quot;https://accounts.example.com/oauth2/token&quot;
     userinfo_endpoint: &quot;https://accounts.example.com/userinfo&quot;
     jwks_uri: &quot;https://accounts.example.com/.well-known/jwks.json&quot;
+    additional_authorization_parameters:
+      acr_values: 2fa
     skip_verification: true
     enable_registration: true
     user_mapping_provider:
@@ -6730,6 +6806,19 @@ All of the listed attributes must match for the login to be permitted.</p>
 users. This allows the CAS SSO flow to be limited to sign in only, rather than
 automatically registering users that have a valid SSO login but do not have
 a pre-registered account. Defaults to true.</p>
+</li>
+<li>
+<p><code>allow_numeric_ids</code>: set to 'true' allow numeric user IDs (default false).
+This allows CAS SSO flow to provide user IDs composed of numbers only.
+These identifiers will be prefixed by the letter &quot;u&quot; by default.
+The prefix can be configured using the &quot;numeric_ids_prefix&quot; option.
+Be careful to choose the prefix correctly to avoid any possible conflicts
+(e.g. user 1234 becomes u1234 when a user u1234 already exists).</p>
+</li>
+<li>
+<p><code>numeric_ids_prefix</code>: the prefix you wish to add in front of a numeric user ID
+when the &quot;allow_numeric_ids&quot; option is set to &quot;true&quot;.
+By default, the prefix is the letter &quot;u&quot; and only alphanumeric characters are allowed.</p>
 <p><em>Added in Synapse 1.93.0.</em></p>
 </li>
 </ul>
@@ -6743,6 +6832,8 @@ a pre-registered account. Defaults to true.</p>
     userGroup: &quot;staff&quot;
     department: None
   enable_registration: true
+  allow_numeric_ids: true
+  numeric_ids_prefix: &quot;numericuser&quot;
 </code></pre>
 <hr />
 <h3 id="sso"><a class="header" href="#sso"><code>sso</code></a></h3>
@@ -7131,6 +7222,8 @@ published to the room list.</p>
 The first rule that matches decides if the request is allowed or denied. If no
 rule matches, the request is denied. In particular, this means that configuring
 an empty list of rules will deny every alias creation request.</p>
+<p>Requests to create a public (public as in published to the room directory) room which violates
+the configured rules will result in the room being created but not published to the room directory.</p>
 <p>Each rule is a YAML object containing four fields, each of which is an optional string:</p>
 <ul>
 <li><code>user_id</code>: a glob pattern that matches against the user publishing the room.</li>
@@ -7617,12 +7710,12 @@ a fresh config using Synapse by following the instructions in
 <pre><code class="language-yaml"># This file is maintained as an up-to-date snapshot of the default
 # homeserver.yaml configuration generated by Synapse. You can find a
 # complete accounting of possible configuration options at
-# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+# https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html
 #
 # It is *not* intended to be copied and used as the basis for a real
 # homeserver.yaml. Instead, if you are starting from scratch, please generate
 # a fresh config using Synapse by following the instructions in
-# https://matrix-org.github.io/synapse/latest/setup/installation.html.
+# https://element-hq.github.io/synapse/latest/setup/installation.html.
 #
 ################################################################################
 
@@ -7636,7 +7729,7 @@ a fresh config using Synapse by following the instructions in
 #
 # For more information on how to configure Synapse, including a complete accounting of
 # each option, go to docs/usage/configuration/config_documentation.md or
-# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+# https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html
 server_name: &quot;SERVERNAME&quot;
 pid_file: DATADIR/homeserver.pid
 listeners:
@@ -7667,6 +7760,8 @@ should be the path to this file.</p>
 <p>Note that a default logging configuration (shown below) is created automatically alongside
 the homeserver config when following the <a href="usage/configuration/../../setup/installation.html">installation instructions</a>.
 It should be named <code>&lt;SERVERNAME&gt;.log.config</code> by default.</p>
+<p>Hint: If you're looking for a guide on what each of the fields in the &quot;Processed request&quot; log lines mean,
+see <a href="usage/configuration/../administration/request_log.html">Request log format</a>.</p>
 <pre><code class="language-yaml"># Log configuration for Synapse.
 #
 # This is a YAML file containing a standard Python logging configuration
@@ -7676,7 +7771,7 @@ It should be named <code>&lt;SERVERNAME&gt;.log.config</code> by default.</p>
 # be ingested by ELK stacks. See [2] for details.
 #
 # [1]: https://docs.python.org/3/library/logging.config.html#configuration-dictionary-schema
-# [2]: https://matrix-org.github.io/synapse/latest/structured_logging.html
+# [2]: https://element-hq.github.io/synapse/latest/structured_logging.html
 
 version: 1
 
@@ -7815,7 +7910,7 @@ remote endpoint at 10.1.2.3:9999.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="templates"><a class="header" href="#templates">Templates</a></h1>
 <p>Synapse uses parametrised templates to generate the content of emails it sends and
 webpages it shows to users.</p>
-<p>By default, Synapse will use the templates listed <a href="https://github.com/matrix-org/synapse/tree/master/synapse/res/templates">here</a>.
+<p>By default, Synapse will use the templates listed <a href="https://github.com/element-hq/synapse/tree/master/synapse/res/templates">here</a>.
 Server admins can configure an additional directory for Synapse to look for templates
 in, allowing them to specify custom templates:</p>
 <pre><code class="language-yaml">templates:
@@ -7938,7 +8033,7 @@ and failure that a user will see when they confirm the password reset flow using
 page above.
 When rendering, <code>password_reset_success.html</code> is given no variable, and
 <code>password_reset_failure.html</code> is given a <code>failure_reason</code>, which contains the reason
-for the password reset failure. </li>
+for the password reset failure.</li>
 <li><code>registration_success.html</code> and <code>registration_failure.html</code>: HTML pages for success and
 failure that a user will see when they follow the link in an address verification email
 sent during registration.
@@ -8793,13 +8888,15 @@ comment these options out and use those specified by the module instead.</p>
 <h3 id="building-a-custom-openid-mapping-provider"><a class="header" href="#building-a-custom-openid-mapping-provider">Building a Custom OpenID Mapping Provider</a></h3>
 <p>A custom mapping provider must specify the following methods:</p>
 <ul>
-<li><code>def __init__(self, parsed_config)</code>
+<li><code>def __init__(self, parsed_config, module_api)</code>
 <ul>
 <li>Arguments:
 <ul>
 <li><code>parsed_config</code> - A configuration object that is the return value of the
 <code>parse_config</code> method. You should set any configuration options needed by
 the module here.</li>
+<li><code>module_api</code> - a <code>synapse.module_api.ModuleApi</code> object which provides the
+stable API available for extension modules.</li>
 </ul>
 </li>
 </ul>
@@ -8862,6 +8959,7 @@ string is returned from this method, Synapse will prompt the user to
 either accept this localpart or pick their own username. Otherwise this
 option has no effect. If omitted, defaults to <code>False</code>.</li>
 <li><code>display_name</code>: An optional string, the display name for the user.</li>
+<li><code>picture</code>: An optional string, the avatar url for the user.</li>
 <li><code>emails</code>: A list of strings, the email address(es) to associate with
 this user. If omitted, defaults to an empty list.</li>
 </ul>
@@ -8894,7 +8992,7 @@ usually returned as part of the <a href="https://spec.matrix.org/latest/client-s
 <h3 id="default-openid-mapping-provider"><a class="header" href="#default-openid-mapping-provider">Default OpenID Mapping Provider</a></h3>
 <p>Synapse has a built-in OpenID mapping provider if a custom provider isn't
 specified in the config. It is located at
-<a href="https://github.com/matrix-org/synapse/blob/develop/synapse/handlers/oidc.py"><code>synapse.handlers.oidc.JinjaOidcMappingProvider</code></a>.</p>
+<a href="https://github.com/element-hq/synapse/blob/develop/synapse/handlers/oidc.py"><code>synapse.handlers.oidc.JinjaOidcMappingProvider</code></a>.</p>
 <h2 id="saml-mapping-providers"><a class="header" href="#saml-mapping-providers">SAML Mapping Providers</a></h2>
 <p>The SAML mapping provider can be customized by editing the
 <a href="usage/configuration/config_documentation.html#saml2_config"><code>saml2_config.user_mapping_provider.module</code></a>
@@ -9009,7 +9107,7 @@ complete registration using methods from the <code>ModuleApi</code>.</p>
 <h3 id="default-saml-mapping-provider"><a class="header" href="#default-saml-mapping-provider">Default SAML Mapping Provider</a></h3>
 <p>Synapse has a built-in SAML mapping provider if a custom provider isn't
 specified in the config. It is located at
-<a href="https://github.com/matrix-org/synapse/blob/develop/synapse/handlers/saml.py"><code>synapse.handlers.saml.DefaultSamlMappingProvider</code></a>.</p>
+<a href="https://github.com/element-hq/synapse/blob/develop/synapse/handlers/saml.py"><code>synapse.handlers.saml.DefaultSamlMappingProvider</code></a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 style="color:red">
 This page of the Synapse documentation is now deprecated. For up to date
 documentation on setting up or writing a password auth provider module, please see
@@ -9469,7 +9567,7 @@ database and shows a success page.</p>
 <p>To enable this, first create templates for the policy and success pages.
 These should be stored on the local filesystem.</p>
 <p>These templates use the <a href="http://jinja.pocoo.org">Jinja2</a> templating language,
-and <a href="https://github.com/matrix-org/synapse/tree/develop/docs/privacy_policy_templates/">docs/privacy_policy_templates</a>
+and <a href="https://github.com/element-hq/synapse/tree/develop/docs/privacy_policy_templates/">docs/privacy_policy_templates</a>
 gives examples of the sort of thing that can be done.</p>
 <p>Note that the templates must be stored under a name giving the language of the
 template - currently this must always be <code>en</code> (for &quot;English&quot;);
@@ -9698,9 +9796,9 @@ will be used to break the search term into words. (See the
 <li>If unavailable, then runs of ASCII characters, numbers, underscores, and hyphens
 are considered words.</li>
 </ul>
-<p>The queries for PostgreSQL and SQLite are detailed below, by their overall goal
+<p>The queries for PostgreSQL and SQLite are detailed below, but their overall goal
 is to find matching users, preferring users who are &quot;real&quot; (e.g. not bots,
-not deactivated). It is assumed that real users will have an display name and
+not deactivated). It is assumed that real users will have a display name and
 avatar set.</p>
 <h3 id="postgresql"><a class="header" href="#postgresql">PostgreSQL</a></h3>
 <p>The above words are then transformed into two queries:</p>
@@ -9751,8 +9849,10 @@ follow the semantics described in
 and allow server and room admins to configure how long messages should
 be kept in a homeserver's database before being purged from it.
 <strong>Please note that, as this feature isn't part of the Matrix
-specification yet, this implementation is to be considered as
-experimental.</strong></p>
+specification yet, the use of <code>m.room.retention</code> events for per-room
+retention policies is to be considered as experimental. However, the use
+of a default message retention policy is considered a stable feature
+in Synapse.</strong></p>
 <p>A message retention policy is mainly defined by its <code>max_lifetime</code>
 parameter, which defines how long a message can be kept around after
 it was sent to the room. If a room doesn't have a message retention
@@ -9783,8 +9883,8 @@ though it will always hide it from clients.</p>
 delete the last message in a room. It will, however, hide it from
 clients.</p>
 <h2 id="server-configuration"><a class="header" href="#server-configuration">Server configuration</a></h2>
-<p>Support for this feature can be enabled and configured by adding a the
-<code>retention</code> in the Synapse configuration file (see
+<p>Support for this feature can be enabled and configured by adding the
+<code>retention</code> option in the Synapse configuration file (see
 <a href="usage/configuration/config_documentation.html#retention">configuration manual</a>).</p>
 <p>To enable support for message retention policies, set the setting
 <code>enabled</code> in this section to <code>true</code>.</p>
@@ -9834,7 +9934,7 @@ which policy's <code>max_lifetime</code> is lower or equal to 3 days.</li>
 policy's <code>max_lifetime</code> is greater than a week.</li>
 </ul>
 <p>Note that this example is tailored to show different configurations and
-features slightly more jobs than it's probably necessary (in practice, a
+features slightly more jobs than is probably necessary (in practice, a
 server admin would probably consider it better to replace the two last
 jobs with one that runs once a day and handles rooms which
 policy's <code>max_lifetime</code> is greater than 3 days).</p>
@@ -9950,7 +10050,7 @@ the <code>synapse.module_api.ModuleApi</code> class. The configuration is a dict
 either the output of the module's <code>parse_config</code> static method (see below), or the
 configuration associated with the module in Synapse's configuration file.</p>
 <p>See the documentation for the <code>ModuleApi</code> class
-<a href="https://github.com/matrix-org/synapse/blob/master/synapse/module_api/__init__.py">here</a>.</p>
+<a href="https://github.com/element-hq/synapse/blob/master/synapse/module_api/__init__.py">here</a>.</p>
 <h2 id="when-synapse-runs-with-several-modules-configured"><a class="header" href="#when-synapse-runs-with-several-modules-configured">When Synapse runs with several modules configured</a></h2>
 <p>If Synapse is running with other modules configured, the order each module appears in
 within the <code>modules</code> section of the Synapse configuration file might restrict what it can
@@ -10001,7 +10101,7 @@ methods. The callback functions are passed to these methods as keyword arguments
 the callback name as the argument name and the function as its value. A
 <code>register_[...]_callbacks</code> method exists for each category.</p>
 <p>Callbacks for each category can be found on their respective page of the
-<a href="https://matrix-org.github.io/synapse">Synapse documentation website</a>.</p>
+<a href="https://element-hq.github.io/synapse">Synapse documentation website</a>.</p>
 <h2 id="caching-1"><a class="header" href="#caching-1">Caching</a></h2>
 <p><em>Added in Synapse 1.74.0.</em></p>
 <p>Modules can leverage Synapse's caching tools to manage their own cached functions. This
@@ -10021,7 +10121,7 @@ from synapse.module_api import cached, ModuleApi
 class MyModule:
     def __init__(self, config: Any, api: ModuleApi):
         self.api = api
-        
+
         # Register the cached function so Synapse knows how to correctly invalidate
         # entries for it.
         self.api.register_cached_function(self.get_user_from_id)
@@ -10036,15 +10136,15 @@ class MyModule:
 
     async def do_something_with_users(self) -&gt; None:
         &quot;&quot;&quot;Calls the cached function and then invalidates an entry in its cache.&quot;&quot;&quot;
-        
+
         user_id = &quot;@alice:example.com&quot;
-        
+
         # Get the user. Since get_department_for_user is wrapped with a cache,
         # the return value for this user_id will be cached.
         department = await self.get_department_for_user(user_id)
-        
+
         # Do something with `department`...
-        
+
         # Let's say something has changed with our user, and the entry we have for
         # them in the cache is out of date, so we want to invalidate it.
         await self.api.invalidate_cache(self.get_department_for_user, (user_id,))
@@ -10533,6 +10633,9 @@ any of the subsequent implementations of this callback.</p>
 <p>Called after sending an event into a room. The module is passed the event, as well
 as the state of the room <em>after</em> the event. This means that if the event is a state event,
 it will be included in this state.</p>
+<p>The state map may not be complete if Synapse hasn't yet loaded the full state
+of the room. This can happen for events in rooms that were just joined from
+a remote server.</p>
 <p>Note that this callback is called when the event has already been processed and stored
 into the room, which means this callback cannot be used to deny persisting the event. To
 deny an incoming event, see <a href="modules/spam_checker_callbacks.html#check_event_for_spam"><code>check_event_for_spam</code></a> instead.</p>
@@ -10592,7 +10695,7 @@ wishing this callback to be called on every profile change are encouraged to dis
 per-room profiles globally using the <code>allow_per_room_profiles</code> configuration setting in
 Synapse's configuration file.
 This callback is not called when registering a user, even when setting it through the
-<a href="https://matrix-org.github.io/synapse/latest/modules/password_auth_provider_callbacks.html#get_displayname_for_registration"><code>get_displayname_for_registration</code></a>
+<a href="https://element-hq.github.io/synapse/latest/modules/password_auth_provider_callbacks.html#get_displayname_for_registration"><code>get_displayname_for_registration</code></a>
 module callback.</p>
 <p>If multiple modules implement this callback, Synapse runs them all in order.</p>
 <h3 id="on_user_deactivation_status_changed"><a class="header" href="#on_user_deactivation_status_changed"><code>on_user_deactivation_status_changed</code></a></h3>
@@ -11261,8 +11364,8 @@ virtualenv, these can be installed with:</p>
 <pre><code class="language-sh">pip install &quot;matrix-synapse[redis]&quot;
 </code></pre>
 <p>Note that these dependencies are included when synapse is installed with <code>pip install matrix-synapse[all]</code>. They are also included in the debian packages from
-<code>matrix.org</code> and in the docker images at
-https://hub.docker.com/r/matrixdotorg/synapse/.</p>
+<code>packages.matrix.org</code> and in the docker images at
+https://hub.docker.com/r/ectorim/synapse/.</p>
 <p>To make effective use of the workers, you will need to configure an HTTP
 reverse-proxy such as nginx or haproxy, which will direct incoming requests to
 the correct worker, or to the main synapse instance. See
@@ -11287,7 +11390,7 @@ file suitable for use with workers:</p>
 for the main process</li>
 <li>Secondly, you need to enable
 <a href="usage/configuration/config_documentation.html#redis">redis-based replication</a></li>
-<li>You will need to add an <a href="usage/configuration/config_documentation.html#instance_map"><code>instance_map</code></a> 
+<li>You will need to add an <a href="usage/configuration/config_documentation.html#instance_map"><code>instance_map</code></a>
 with the <code>main</code> process defined, as well as the relevant connection information from
 it's HTTP <code>replication</code> listener (defined in step 1 above).
 <ul>
@@ -11420,7 +11523,7 @@ information.</p>
 ^/_matrix/client/v1/rooms/.*/hierarchy$
 ^/_matrix/client/(v1|unstable)/rooms/.*/relations/
 ^/_matrix/client/v1/rooms/.*/threads$
-^/_matrix/client/unstable/im.nheko.summary/rooms/.*/summary$
+^/_matrix/client/unstable/im.nheko.summary/summary/.*$
 ^/_matrix/client/(r0|v3|unstable)/account/3pid$
 ^/_matrix/client/(r0|v3|unstable)/account/whoami$
 ^/_matrix/client/(r0|v3|unstable)/devices$
@@ -11603,7 +11706,7 @@ of the main process to a particular worker.</p>
 <li>An <a href="usage/configuration/config_documentation.html#listeners">HTTP <code>replication</code> listener</a> configured,</li>
 <li>Have a <a href="usage/configuration/config_documentation.html#worker_name"><code>worker_name</code></a>
 and be listed in the <a href="usage/configuration/config_documentation.html#instance_map"><code>instance_map</code></a>
-config. </li>
+config.</li>
 <li>Have the main process declared on the <a href="usage/configuration/config_documentation.html#instance_map"><code>instance_map</code></a> as well.</li>
 </ul>
 <p>Note: The same worker can handle multiple streams, but unless otherwise documented,
@@ -11698,6 +11801,11 @@ the stream writer for the <code>receipts</code> stream:</p>
 the stream writer for the <code>presence</code> stream:</p>
 <pre><code>^/_matrix/client/(api/v1|r0|v3|unstable)/presence/
 </code></pre>
+<h5 id="the-push_rules-stream"><a class="header" href="#the-push_rules-stream">The <code>push_rules</code> stream</a></h5>
+<p>The following endpoints should be routed directly to the worker configured as
+the stream writer for the <code>push_rules</code> stream:</p>
+<pre><code>^/_matrix/client/(api/v1|r0|v3|unstable)/pushrules/
+</code></pre>
 <h4 id="restrict-outbound-federation-traffic-to-a-specific-set-of-workers"><a class="header" href="#restrict-outbound-federation-traffic-to-a-specific-set-of-workers">Restrict outbound federation traffic to a specific set of workers</a></h4>
 <p>The
 <a href="usage/configuration/config_documentation.html#outbound_federation_restricted_to"><code>outbound_federation_restricted_to</code></a>
@@ -11766,7 +11874,7 @@ after setting this option in the shared configuration!</p>
 <p>This style of configuration supersedes the legacy <code>synapse.app.appservice</code>
 worker application type.</p>
 <h4 id="push-notifications"><a class="header" href="#push-notifications">Push Notifications</a></h4>
-<p>You can designate generic worker to sending push notifications to
+<p>You can designate generic workers to send push notifications to
 a <a href="https://spec.matrix.org/v1.5/push-gateway-api/">push gateway</a> such as
 <a href="https://github.com/matrix-org/sygnal">sygnal</a> and email.</p>
 <p>This will stop the main process sending push notifications.</p>
@@ -11975,9 +12083,9 @@ managing workers. It provides a <code>matrix-synapse</code> service for the mast
 well as a <code>matrix-synapse-worker@</code> service template for any workers you
 require. Additionally, to group the required services, it sets up a
 <code>matrix-synapse.target</code>.</p>
-<p>See the folder <a href="https://github.com/matrix-org/synapse/tree/develop/docs/systemd-with-workers/system/">system</a>
+<p>See the folder <a href="https://github.com/element-hq/synapse/tree/develop/docs/systemd-with-workers/system/">system</a>
 for the systemd unit files.</p>
-<p>The folder <a href="https://github.com/matrix-org/synapse/tree/develop/docs/systemd-with-workers/workers/">workers</a>
+<p>The folder <a href="https://github.com/element-hq/synapse/tree/develop/docs/systemd-with-workers/workers/">workers</a>
 contains an example configuration for the <code>generic_worker</code> worker.</p>
 <h2 id="synapse-configuration-files"><a class="header" href="#synapse-configuration-files">Synapse configuration files</a></h2>
 <p>See <a href="systemd-with-workers/../workers.html">the worker documentation</a> for information on how to set up the
@@ -12004,7 +12112,7 @@ the provided <code>*.service</code> files accordingly.</p>
 <h2 id="set-up"><a class="header" href="#set-up">Set up</a></h2>
 <ol>
 <li>Adjust synapse configuration files as above.</li>
-<li>Copy the <code>*.service</code> and <code>*.target</code> files in <a href="https://github.com/matrix-org/synapse/tree/develop/docs/systemd-with-workers/system/">system</a>
+<li>Copy the <code>*.service</code> and <code>*.target</code> files in <a href="https://github.com/element-hq/synapse/tree/develop/docs/systemd-with-workers/system/">system</a>
 to <code>/etc/systemd/system</code>.</li>
 <li>Run <code>systemctl daemon-reload</code> to tell systemd to load the new unit files.</li>
 <li>Run <code>systemctl enable matrix-synapse.service</code>. This will configure the
@@ -12039,7 +12147,7 @@ systemctl restart matrix-synapse.target
 <h2 id="hardening"><a class="header" href="#hardening">Hardening</a></h2>
 <p><strong>Optional:</strong> If further hardening is desired, the file
 <code>override-hardened.conf</code> may be copied from
-<a href="https://github.com/matrix-org/synapse/tree/develop/contrib/systemd/">contrib/systemd/override-hardened.conf</a>
+<a href="https://github.com/element-hq/synapse/tree/develop/contrib/systemd/">contrib/systemd/override-hardened.conf</a>
 in this repository to the location
 <code>/etc/systemd/system/matrix-synapse.service.d/override-hardened.conf</code> (the
 directory may have to be created). It enables certain sandboxing features in
@@ -12157,7 +12265,7 @@ run against the database.</p>
 <code>total_duration_ms</code> how long the background process has been running, not including time spent sleeping.
 <code>average_items_per_ms</code> how many items are processed per millisecond based on an exponential average.</p>
 <h2 id="enabled"><a class="header" href="#enabled">Enabled</a></h2>
-<p>This API allow pausing background updates.</p>
+<p>This API allows pausing background updates.</p>
 <p>Background updates should <em>not</em> be paused for significant periods of time, as
 this can affect the performance of Synapse.</p>
 <p><em>Note</em>: This won't persist over restarts.</p>
@@ -12984,7 +13092,7 @@ the <a href="https://matrix.org/docs/spec/client_server/r0.6.1#api-standards">Ma
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="edit-room-membership-api"><a class="header" href="#edit-room-membership-api">Edit Room Membership API</a></h1>
-<p>This API allows an administrator to join an user account with a given <code>user_id</code>
+<p>This API allows an administrator to join a user account with a given <code>user_id</code>
 to a room with a given <code>room_id_or_alias</code>. You can only modify the membership of
 local users. The server administrator must be in the room and have permission to
 invite users.</p>
@@ -13805,7 +13913,7 @@ them handle rejoining themselves.</p>
 </li>
 <li>
 <p>If <code>new_room_user_id</code> was given, a 'Content Violation' will have been
-created. Consider whether you want to delete that roomm.</p>
+created. Consider whether you want to delete that room.</p>
 </li>
 </ol>
 <h1 id="make-room-admin-api"><a class="header" href="#make-room-admin-api">Make Room Admin API</a></h1>
@@ -14244,8 +14352,8 @@ provider for SSO (Single sign-on). More details are in the configuration manual 
 sections <a href="admin_api/../usage/configuration/config_documentation.html#sso">sso</a> and <a href="admin_api/../usage/configuration/config_documentation.html#oidc_providers">oidc_providers</a>.</p>
 <ul>
 <li><code>auth_provider</code> - <strong>string</strong>, required. The unique, internal ID of the external identity provider.
-The same as <code>idp_id</code> from the homeserver configuration. Note that no error is raised if the
-provided value is not in the homeserver configuration.</li>
+The same as <code>idp_id</code> from the homeserver configuration. If using OIDC, this value should be prefixed
+with <code>oidc-</code>. Note that no error is raised if the provided value is not in the homeserver configuration.</li>
 <li><code>external_id</code> - <strong>string</strong>, required. An identifier for the user in the external identity provider.
 When the user logs in to the identity provider, this must be the unique ID that they map to.</li>
 </ul>
@@ -14256,11 +14364,12 @@ granting them access to the Admin API, among other things.</p>
 </li>
 <li>
 <p><code>deactivated</code> - <strong>bool</strong>, optional. If unspecified, deactivation state will be left unchanged.</p>
-<p>Note: the <code>password</code> field must also be set if both of the following are true:</p>
+<p>Note:</p>
 <ul>
-<li><code>deactivated</code> is set to <code>false</code> and the user was previously deactivated (you are reactivating this user)</li>
-<li>Users are allowed to set their password on this homeserver (both <code>password_config.enabled</code> and
-<code>password_config.localdb_enabled</code> config options are set to <code>true</code>).
+<li>For the password field there is no strict check of the necessity for its presence.
+It is possible to have active users without a password, e.g. when authenticating with OIDC is configured.
+You must check yourself whether a password is required when reactivating a user or not.</li>
+<li>It is not possible to set a password if the config option <code>password_config.localdb_enabled</code> is set <code>false</code>.
 Users' passwords are wiped upon account deactivation, hence the need to set a new one here.</li>
 </ul>
 <p>Note: a user cannot be erased with this API. For more details on
@@ -14276,6 +14385,7 @@ Other allowed options are: <code>bot</code> and <code>support</code>.</p>
 </li>
 </ul>
 <h2 id="list-accounts"><a class="header" href="#list-accounts">List Accounts</a></h2>
+<h3 id="list-accounts-v2"><a class="header" href="#list-accounts-v2">List Accounts (V2)</a></h3>
 <p>This API returns all local user accounts.
 By default, the response is ordered by ascending user ID.</p>
 <pre><code>GET /_synapse/admin/v2/users?from=0&amp;limit=10&amp;guests=false
@@ -14333,7 +14443,7 @@ that contain this value. This parameter is ignored when using the <code>name</co
 Defaults to <code>true</code> to include guest users. This parameter is not supported when MSC3861 is enabled. <a href="https://github.com/matrix-org/synapse/pull/15582">See #15582</a></p>
 </li>
 <li>
-<p><code>admins</code> - Optional flag to filter admins. If <code>true</code>, only admins are queried. If <code>false</code>, admins are excluded from 
+<p><code>admins</code> - Optional flag to filter admins. If <code>true</code>, only admins are queried. If <code>false</code>, admins are excluded from
 the query. When the flag is absent (the default), <strong>both</strong> admins and non-admins are included in the search results.</p>
 </li>
 <li>
@@ -14396,7 +14506,7 @@ User objects contain the following fields:</p>
 <li><code>is_guest</code> - bool - Status if that user is a guest account.</li>
 <li><code>admin</code> - bool - Status if that user is a server administrator.</li>
 <li><code>user_type</code> - string - Type of the user. Normal users are type <code>None</code>.
-This allows user type specific behaviour. There are also types <code>support</code> and <code>bot</code>. </li>
+This allows user type specific behaviour. There are also types <code>support</code> and <code>bot</code>.</li>
 <li><code>deactivated</code> - bool - Status if that user has been marked as deactivated.</li>
 <li><code>erased</code> - bool - Status if that user has been marked as erased.</li>
 <li><code>shadow_banned</code> - bool - Status if that user has been marked as shadow banned.</li>
@@ -14415,6 +14525,16 @@ This allows user type specific behaviour. There are also types <code>support</co
 </li>
 </ul>
 <p><em>Added in Synapse 1.93:</em> the <code>locked</code> query parameter and response field.</p>
+<h3 id="list-accounts-v3"><a class="header" href="#list-accounts-v3">List Accounts (V3)</a></h3>
+<p>This API returns all local user accounts (see v2). In contrast to v2, the query parameter <code>deactivated</code> is handled differently.</p>
+<pre><code>GET /_synapse/admin/v3/users
+</code></pre>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><code>deactivated</code> - Optional flag to filter deactivated users. If <code>true</code>, only deactivated users are returned.
+If <code>false</code>, deactivated users are excluded from the query. When the flag is absent (the default),
+users are not filtered by deactivation status.</li>
+</ul>
 <h2 id="query-current-sessions-for-a-user"><a class="header" href="#query-current-sessions-for-a-user">Query current sessions for a user</a></h2>
 <p>This API returns information about the active sessions for a specific user.</p>
 <p>The endpoints are:</p>
@@ -14904,7 +15024,7 @@ devices was last seen. (May be a few minutes out of date, for efficiency reasons
 </li>
 </ul>
 <h3 id="create-a-device"><a class="header" href="#create-a-device">Create a device</a></h3>
-<p>Creates a new device for a specific <code>user_id</code> and <code>device_id</code>. Does nothing if the <code>device_id</code> 
+<p>Creates a new device for a specific <code>user_id</code> and <code>device_id</code>. Does nothing if the <code>device_id</code>
 exists already.</p>
 <p>The API is:</p>
 <pre><code>POST /_synapse/admin/v2/users/&lt;user_id&gt;/devices
@@ -15206,10 +15326,10 @@ being limited.</li>
 be local.</li>
 </ul>
 <h2 id="check-username-availability"><a class="header" href="#check-username-availability">Check username availability</a></h2>
-<p>Checks to see if a username is available, and valid, for the server. See <a href="https://matrix.org/docs/spec/client_server/r0.6.0#get-matrix-client-r0-register-available">the client-server 
+<p>Checks to see if a username is available, and valid, for the server. See <a href="https://matrix.org/docs/spec/client_server/r0.6.0#get-matrix-client-r0-register-available">the client-server
 API</a>
 for more information.</p>
-<p>This endpoint will work even if registration is disabled on the server, unlike 
+<p>This endpoint will work even if registration is disabled on the server, unlike
 <code>/_matrix/client/r0/register/available</code>.</p>
 <p>The API is:</p>
 <pre><code>GET /_synapse/admin/v1/username_available?username=$localpart
@@ -15478,7 +15598,7 @@ ensures that access to the <code>manhole</code> is only possible for local users
     --mount type=volume,src=synapse-data,dst=/data \
     -p 8008:8008 \
     -p 127.0.0.1:9000:9000 \
-    matrixdotorg/synapse:latest
+    vectorim/synapse:latest
 </code></pre>
 <h4 id="native-config"><a class="header" href="#native-config">Native config</a></h4>
 <p>If you are not using docker, set <code>bind_addresses</code> to <code>['::1', '127.0.0.1']</code> as shown.
@@ -15600,8 +15720,8 @@ the listener port configured with the <code>metrics</code> resource.</p>
 <p>Restart Prometheus.</p>
 </li>
 <li>
-<p>Consider using the <a href="https://github.com/matrix-org/synapse/tree/master/contrib/grafana/">grafana dashboard</a>
-and required <a href="https://github.com/matrix-org/synapse/tree/master/contrib/prometheus/">recording rules</a> </p>
+<p>Consider using the <a href="https://github.com/element-hq/synapse/tree/master/contrib/grafana/">grafana dashboard</a>
+and required <a href="https://github.com/element-hq/synapse/tree/master/contrib/prometheus/">recording rules</a></p>
 </li>
 </ol>
 <h2 id="monitoring-workers"><a class="header" href="#monitoring-workers">Monitoring workers</a></h2>
@@ -15861,6 +15981,7 @@ consider using one of the following known implementations:</p>
 <ul>
 <li><a href="https://github.com/matrix-org/panopticon">Matrix.org's Panopticon</a></li>
 <li><a href="https://gitlab.com/famedly/infra/services/barad-dur">Famedly's Barad-dûr</a></li>
+<li><a href="https://github.com/loelkes/synapse-usage-exporter">Synapse Usage Exporter</a> for Prometheus</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="monthly-active-users"><a class="header" href="#monthly-active-users">Monthly Active Users</a></h1>
 <p>Synapse can be configured to record the number of monthly active users (also referred to as MAU) on a given homeserver.
@@ -15927,14 +16048,14 @@ to filter by a specific service ID. This <em>also</em> includes non-application-
 <p><code>synapse_admin_mau_registered_reserved_users</code> records the number of users specified in <code>mau_limits_reserved_threepids</code> which have
 registered accounts on the homeserver.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-synapse-through-grafana-graphs"><a class="header" href="#understanding-synapse-through-grafana-graphs">Understanding Synapse through Grafana graphs</a></h2>
-<p>It is possible to monitor much of the internal state of Synapse using <a href="https://prometheus.io">Prometheus</a> 
-metrics and <a href="https://grafana.com/">Grafana</a>. 
-A guide for configuring Synapse to provide metrics is available <a href="usage/administration/../../metrics-howto.html">here</a> 
-and information on setting up Grafana is <a href="https://github.com/matrix-org/synapse/tree/master/contrib/grafana">here</a>.
+<p>It is possible to monitor much of the internal state of Synapse using <a href="https://prometheus.io">Prometheus</a>
+metrics and <a href="https://grafana.com/">Grafana</a>.
+A guide for configuring Synapse to provide metrics is available <a href="usage/administration/../../metrics-howto.html">here</a>
+and information on setting up Grafana is <a href="https://github.com/element-hq/synapse/tree/master/contrib/grafana">here</a>.
 In this setup, Prometheus will periodically scrape the information Synapse provides and
 store a record of it over time. Grafana is then used as an interface to query and
 present this information through a series of pretty graphs.</p>
-<p>Once you have grafana set up, and assuming you're using <a href="https://github.com/matrix-org/synapse/blob/master/contrib/grafana/synapse.json">our grafana dashboard template</a>, look for the following graphs when debugging a slow/overloaded Synapse:</p>
+<p>Once you have grafana set up, and assuming you're using <a href="https://github.com/element-hq/synapse/blob/master/contrib/grafana/synapse.json">our grafana dashboard template</a>, look for the following graphs when debugging a slow/overloaded Synapse:</p>
 <h2 id="message-event-send-time"><a class="header" href="#message-event-send-time">Message Event Send Time</a></h2>
 <p><img src="https://user-images.githubusercontent.com/1342360/82239409-a1c8e900-9930-11ea-8081-e4614e0c63f4.png" alt="image" /></p>
 <p>This, along with the CPU and Memory graphs, is a good way to check the general health of your Synapse instance. It represents how long it takes for a user on your homeserver to send a message.</p>
@@ -15961,20 +16082,20 @@ present this information through a series of pretty graphs.</p>
 <p>This is quite a useful graph. It shows how many times Synapse attempts to retrieve a piece of data from a cache which the cache did not contain, thus resulting in a call to the database. We can see here that the <code>_get_joined_profile_from_event_id</code> cache is being requested a lot, and often the data we're after is not cached.</p>
 <p>Cross-referencing this with the Eviction Rate graph, which shows that entries are being evicted from <code>_get_joined_profile_from_event_id</code> quite often:</p>
 <p><img src="https://user-images.githubusercontent.com/1342360/82240766-de95df80-9932-11ea-8c15-5acfc57c48da.png" alt="image" /></p>
-<p>we should probably consider raising the size of that cache by raising its cache factor (a multiplier value for the size of an individual cache). Information on doing so is available <a href="https://github.com/matrix-org/synapse/blob/ee421e524478c1ad8d43741c27379499c2f6135c/docs/sample_config.yaml#L608-L642">here</a> (note that the configuration of individual cache factors through the configuration file is available in Synapse v1.14.0+, whereas doing so through environment variables has been supported for a very long time). Note that this will increase Synapse's overall memory usage.</p>
+<p>we should probably consider raising the size of that cache by raising its cache factor (a multiplier value for the size of an individual cache). Information on doing so is available <a href="https://github.com/element-hq/synapse/blob/ee421e524478c1ad8d43741c27379499c2f6135c/docs/sample_config.yaml#L608-L642">here</a> (note that the configuration of individual cache factors through the configuration file is available in Synapse v1.14.0+, whereas doing so through environment variables has been supported for a very long time). Note that this will increase Synapse's overall memory usage.</p>
 <h2 id="forward-extremities"><a class="header" href="#forward-extremities">Forward Extremities</a></h2>
 <p><img src="https://user-images.githubusercontent.com/1342360/82241440-13566680-9934-11ea-8b88-ba468db937ed.png" alt="image" /></p>
 <p>Forward extremities are the leaf events at the end of a DAG in a room, aka events that have no children. The more that exist in a room, the more <a href="https://spec.matrix.org/v1.1/server-server-api/#room-state-resolution">state resolution</a> that Synapse needs to perform (hint: it's an expensive operation). While Synapse has code to prevent too many of these existing at one time in a room, bugs can sometimes make them crop up again.</p>
 <p>If a room has &gt;10 forward extremities, it's worth checking which room is the culprit and potentially removing them using the SQL queries mentioned in <a href="https://github.com/matrix-org/synapse/issues/1760">#1760</a>.</p>
 <h2 id="garbage-collection"><a class="header" href="#garbage-collection">Garbage Collection</a></h2>
 <p><img src="https://user-images.githubusercontent.com/1342360/82241911-da6ac180-9934-11ea-9a0d-a311fe22acd0.png" alt="image" /></p>
-<p>Large spikes in garbage collection times (bigger than shown here, I'm talking in the 
-multiple seconds range), can cause lots of problems in Synapse performance. It's more an 
+<p>Large spikes in garbage collection times (bigger than shown here, I'm talking in the
+multiple seconds range), can cause lots of problems in Synapse performance. It's more an
 indicator of problems, and a symptom of other problems though, so check other graphs for what might be causing it.</p>
 <h2 id="final-thoughts"><a class="header" href="#final-thoughts">Final Thoughts</a></h2>
-<p>If you're still having performance problems with your Synapse instance and you've 
+<p>If you're still having performance problems with your Synapse instance and you've
 tried everything you can, it may just be a lack of system resources. Consider adding
-more CPU and RAM, and make use of <a href="usage/administration/../../workers.html">worker mode</a> 
+more CPU and RAM, and make use of <a href="usage/administration/../../workers.html">worker mode</a>
 to make use of multiple CPU cores / multiple machines for your homeserver.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="some-useful-sql-queries-for-synapse-admins"><a class="header" href="#some-useful-sql-queries-for-synapse-admins">Some useful SQL queries for Synapse Admins</a></h2>
 <h2 id="size-of-full-matrix-db"><a class="header" href="#size-of-full-matrix-db">Size of full matrix db</a></h2>
@@ -16146,6 +16267,12 @@ WHERE room_stats_state.room_id = event_json.room_id&quot; | psql -d synapse -h l
   FROM devices
   WHERE last_seen &lt; DATE_PART('epoch', NOW() - INTERVAL '3 month') * 1000;
 </code></pre>
+<h2 id="clear-the-cache-of-a-remote-users-device-list"><a class="header" href="#clear-the-cache-of-a-remote-users-device-list">Clear the cache of a remote user's device list</a></h2>
+<p>Forces the resync of a remote user's device list - if you have somehow cached a bad state, and the remote server is
+will not send out a device list update.</p>
+<pre><code class="language-sql">INSERT INTO device_lists_remote_resync
+VALUES ('USER_ID', (EXTRACT(epoch FROM NOW()) * 1000)::BIGINT);
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><p><em>This <a href="https://jacksonchen666.com/posts/2022-12-03/14-33-00/">blog post by Jackson Chen</a> (Dec 2022) explains how to use many of the tools listed on this page. There is also an <a href="https://levans.fr/shrink-synapse-database.html">earlier blog by Victor Berger</a> (June 2020), though this may be outdated in places.</em></p>
 <h1 id="list-of-useful-tools-and-scripts-for-maintenance-synapse-database"><a class="header" href="#list-of-useful-tools-and-scripts-for-maintenance-synapse-database">List of useful tools and scripts for maintenance Synapse database:</a></h1>
 <h2 id="purge-remote-media-api-1"><a class="header" href="#purge-remote-media-api-1"><a href="usage/administration/../../admin_api/media_admin_api.html#purge-remote-media-api">Purge Remote Media API</a></a></h2>
@@ -16172,7 +16299,7 @@ WHERE room_stats_state.room_id = event_json.room_id&quot; | psql -d synapse -h l
 <h2 id="compression-tool"><a class="header" href="#compression-tool">Compression tool</a></h2>
 <p>There is a tool at https://github.com/matrix-org/rust-synapse-compress-state which can compress the <code>state_groups_state</code> on a room by-room basis (essentially, it reduces the number of &quot;full&quot; state groups). This can result in dramatic reductions of the storage used.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="request-log-format"><a class="header" href="#request-log-format">Request log format</a></h1>
-<p>HTTP request logs are written by synapse (see <a href="https://github.com/matrix-org/synapse/tree/develop/synapse/http/site.py"><code>synapse/http/site.py</code></a> for details).</p>
+<p>HTTP request logs are written by synapse (see <a href="https://github.com/element-hq/synapse/tree/develop/synapse/http/site.py"><code>synapse/http/site.py</code></a> for details).</p>
 <p>See the following for how to decode the dense data available from the default logging configuration.</p>
 <pre><code>2020-10-01 12:00:00,000 - synapse.access.http.8008 - 311 - INFO - PUT-1000- 192.168.0.1 - 8008 - {another-matrix-server.com} Processed request: 0.100sec/-0.000sec (0.000sec, 0.000sec) (0.001sec/0.090sec/3) 11B !200 &quot;PUT /_matrix/federation/v1/send/1600000000000 HTTP/1.1&quot; &quot;Synapse/1.20.1&quot; [0 dbevts]
 -AAAAAAAAAAAAAAAAAAAAA-   -BBBBBBBBBBBBBBBBBBBBBB-   -C-   -DD-   -EEEEEE-  -FFFFFFFFF-   -GG-    -HHHHHHHHHHHHHHHHHHHHHHH-                     -IIIIII- -JJJJJJJ-  -KKKKKK-, -LLLLLL-  -MMMMMMM- -NNNNNN- O  -P- -QQ-  -RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR-   -SSSSSSSSSSSS-   -TTTTTT-
@@ -16298,6 +16425,9 @@ for file in $source_directory/*; do
     fi
 done
 </code></pre>
+<h2 id="how-do-i-upgrade-from-a-very-old-version-of-synapse-to-the-latest"><a class="header" href="#how-do-i-upgrade-from-a-very-old-version-of-synapse-to-the-latest">How do I upgrade from a very old version of Synapse to the latest?</a></h2>
+<p>See <a href="usage/administration/../../upgrade.html#upgrading-from-a-very-old-version">this</a> section in the
+upgrade docs.</p>
 <h2 id="manually-resetting-passwords"><a class="header" href="#manually-resetting-passwords">Manually resetting passwords</a></h2>
 <p>Users can reset their password through their client. Alternatively, a server admin
 can reset a user's password using the <a href="usage/administration/../../admin_api/user_admin_api.html#reset-password">admin API</a>.</p>
@@ -16375,7 +16505,7 @@ variable. The default is 0.5, which can be decreased to reduce RAM usage
 in memory constrained environments, or increased if performance starts to
 degrade.</p>
 <p>However, degraded performance due to a low cache factor, common on
-machines with slow disks, often leads to explosions in memory use due
+machines with slow disks, often leads to explosions in memory use due to
 backlogged requests. In this case, reducing the cache factor will make
 things worse. Instead, try increasing it drastically. 2.0 is a good
 starting value.</p>
@@ -16383,9 +16513,9 @@ starting value.</p>
 improvement in overall memory use, and especially in terms of giving back
 RAM to the OS. To use it, the library must simply be put in the
 LD_PRELOAD environment variable when launching Synapse. On Debian, this
-can be done by installing the <code>libjemalloc1</code> package and adding this
+can be done by installing the <code>libjemalloc2</code> package and adding this
 line to <code>/etc/default/matrix-synapse</code>:</p>
-<pre><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+<pre><code>LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 </code></pre>
 <p>This made a significant difference on Python 2.7 - it's unclear how
 much of an improvement it provides on Python 3.x.</p>
@@ -16418,14 +16548,15 @@ you see this failure mode so we can help debug it, however.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
 <p>This document aims to get you started with contributing to Synapse!</p>
 <h1 id="1-who-can-contribute-to-synapse"><a class="header" href="#1-who-can-contribute-to-synapse">1. Who can contribute to Synapse?</a></h1>
-<p>Everyone is welcome to contribute code to <a href="https://github.com/matrix-org">matrix.org
-projects</a>, provided that they are willing to
-license their contributions under the same license as the project itself. We
-follow a simple 'inbound=outbound' model for contributions: the act of
-submitting an 'inbound' contribution means that the contributor agrees to
-license the code under the same terms as the project's overall 'outbound'
-license - in our case, this is almost always Apache Software License v2 (see
-<a href="https://github.com/matrix-org/synapse/blob/develop/LICENSE">LICENSE</a>).</p>
+<p>Everyone is welcome to contribute code to
+<a href="https://github.com/element-hq/synapse">Synapse</a>, provided that they are willing
+to license their contributions to Element under a <a href="https://cla-assistant.io/element-hq/synapse">Contributor License
+Agreement</a> (CLA). This ensures that
+their contribution will be made available under an OSI-approved open-source
+license, currently Affero General Public License v3 (AGPLv3).</p>
+<p>Please see the
+<a href="https://element.io/blog/synapse-now-lives-at-github-com-element-hq-synapse/">Element blog post</a>
+for the full rationale.</p>
 <h1 id="2-what-do-i-need"><a class="header" href="#2-what-do-i-need">2. What do I need?</a></h1>
 <p>If you are running Windows, the Windows Subsystem for Linux (WSL) is strongly
 recommended for development. More information about WSL can be found at
@@ -16458,7 +16589,7 @@ source, you should install <code>poetry</code>.
 Of their installation methods, we recommend
 <a href="https://python-poetry.org/docs/#installing-with-pipx">installing <code>poetry</code> using <code>pipx</code></a>,</p>
 <pre><code class="language-shell">pip install --user pipx
-pipx install poetry==1.5.1  # Problems with Poetry 1.6, see https://github.com/matrix-org/synapse/issues/16147
+pipx install poetry
 </code></pre>
 <p>but see poetry's <a href="https://python-poetry.org/docs/#installation">installation instructions</a>
 for other installation methods.</p>
@@ -16469,6 +16600,7 @@ poetry install --extras all
 </code></pre>
 <p>This will install the runtime and developer dependencies for the project.  Be sure to check
 that the <code>poetry install</code> step completed cleanly.</p>
+<p>For OSX users, be sure to set <code>PKG_CONFIG_PATH</code> to support <code>icu4c</code>. Run <code>brew info icu4c</code> for more details.</p>
 <h2 id="running-synapse-via-poetry"><a class="header" href="#running-synapse-via-poetry">Running Synapse via poetry</a></h2>
 <p>To start a local instance of Synapse in the locked poetry environment, create a config file:</p>
 <pre><code class="language-sh">cp docs/sample_config.yaml homeserver.yaml
@@ -16478,8 +16610,8 @@ cp docs/sample_log_config.yaml log_config.yaml
 <ul>
 <li>Set a <code>server_name</code></li>
 <li>Adjusting paths to be correct for your system like the <code>log_config</code> to point to the log config you just copied</li>
-<li>Using a <a href="https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#database">PostgreSQL database instead of SQLite</a></li>
-<li>Adding a <a href="https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#registration_shared_secret"><code>registration_shared_secret</code></a> so you can use <a href="https://matrix-org.github.io/synapse/latest/setup/installation.html#registering-a-user"><code>register_new_matrix_user</code> command</a>.</li>
+<li>Using a <a href="https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#database">PostgreSQL database instead of SQLite</a></li>
+<li>Adding a <a href="https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html#registration_shared_secret"><code>registration_shared_secret</code></a> so you can use <a href="https://element-hq.github.io/synapse/latest/setup/installation.html#registering-a-user"><code>register_new_matrix_user</code> command</a>.</li>
 </ul>
 <p>And then run Synapse with the following command:</p>
 <pre><code class="language-sh">poetry run python -m synapse.app.homeserver -c homeserver.yaml
@@ -16492,19 +16624,19 @@ resolve any issues and re-run until successful.</p>
 <h1 id="5-get-in-touch"><a class="header" href="#5-get-in-touch">5. Get in touch.</a></h1>
 <p>Join our developer community on Matrix: <a href="https://matrix.to/#/#synapse-dev:matrix.org">#synapse-dev:matrix.org</a>!</p>
 <h1 id="6-pick-an-issue"><a class="header" href="#6-pick-an-issue">6. Pick an issue.</a></h1>
-<p>Fix your favorite problem or perhaps find a <a href="https://github.com/matrix-org/synapse/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22">Good First Issue</a>
+<p>Fix your favorite problem or perhaps find a <a href="https://github.com/element-hq/synapse/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22">Good First Issue</a>
 to work on.</p>
 <h1 id="7-turn-coffee-into-code-and-documentation"><a class="header" href="#7-turn-coffee-into-code-and-documentation">7. Turn coffee into code and documentation!</a></h1>
 <p>There is a growing amount of documentation located in the
-<a href="https://github.com/matrix-org/synapse/tree/develop/docs"><code>docs</code></a>
-directory, with a rendered version <a href="https://matrix-org.github.io/synapse">available online</a>.
+<a href="https://github.com/element-hq/synapse/tree/develop/docs"><code>docs</code></a>
+directory, with a rendered version <a href="https://element-hq.github.io/synapse">available online</a>.
 This documentation is intended primarily for sysadmins running their
 own Synapse instance, as well as developers interacting externally with
 Synapse.
-<a href="https://github.com/matrix-org/synapse/tree/develop/docs/development"><code>docs/development</code></a>
+<a href="https://github.com/element-hq/synapse/tree/develop/docs/development"><code>docs/development</code></a>
 exists primarily to house documentation for
 Synapse developers.
-<a href="https://github.com/matrix-org/synapse/tree/develop/docs/admin_api"><code>docs/admin_api</code></a> houses documentation
+<a href="https://github.com/element-hq/synapse/tree/develop/docs/admin_api"><code>docs/admin_api</code></a> houses documentation
 regarding Synapse's Admin API, which is used mostly by sysadmins and external
 service developers.</p>
 <p>Synapse's code style is documented <a href="development/../code_style.html">here</a>. Please follow
@@ -16512,12 +16644,9 @@ it, including the conventions for <a href="development/../code_style.html#config
 options and documentation</a>.</p>
 <p>We welcome improvements and additions to our documentation itself! When
 writing new pages, please
-<a href="https://github.com/matrix-org/synapse/tree/develop/docs#adding-to-the-documentation">build <code>docs</code> to a book</a>
+<a href="https://github.com/element-hq/synapse/tree/develop/docs#adding-to-the-documentation">build <code>docs</code> to a book</a>
 to check that your contributions render correctly. The docs are written in
 <a href="https://guides.github.com/features/mastering-markdown/">GitHub-Flavoured Markdown</a>.</p>
-<p>Some documentation also exists in <a href="https://github.com/matrix-org/synapse/wiki">Synapse's GitHub
-Wiki</a>, although this is primarily
-contributed to by community authors.</p>
 <p>When changes are made to any Rust code then you must call either <code>poetry install</code>
 or <code>maturin develop</code> (if installed) to rebuild the Rust code. Using <a href="https://github.com/PyO3/maturin"><code>maturin</code></a>
 is quicker than <code>poetry install</code>, so is recommended when making frequent
@@ -16654,7 +16783,7 @@ Here is how to run your local Synapse checkout against your local Complement che
 <li>If setting <code>WORKERS=1</code>, optionally set <code>WORKER_TYPES=</code> to declare which worker
 types you wish to test. A simple comma-delimited string containing the worker types
 defined from the <code>WORKERS_CONFIG</code> template in
-<a href="https://github.com/matrix-org/synapse/blob/develop/docker/configure_workers_and_start.py#L54">here</a>.
+<a href="https://github.com/element-hq/synapse/blob/develop/docker/configure_workers_and_start.py#L54">here</a>.
 A safe example would be <code>WORKER_TYPES=&quot;federation_inbound, federation_sender, synchrotron&quot;</code>.
 See the <a href="development/../workers.html">worker documentation</a> for additional information on workers.</li>
 </ul>
@@ -16708,7 +16837,7 @@ in the format of <code>PRnumber.type</code>. The type can be one of the followin
 <li><code>removal</code> (also used for deprecations)</li>
 <li><code>misc</code> (for internal-only changes)</li>
 </ul>
-<p>This file will become part of our <a href="https://github.com/matrix-org/synapse/blob/master/CHANGES.md">changelog</a> at the next
+<p>This file will become part of our <a href="https://github.com/element-hq/synapse/blob/master/CHANGES.md">changelog</a> at the next
 release, so the content of the file should be a short description of your
 change in the same style as the rest of the changelog. The file can contain Markdown
 formatting, and must end with a full stop (.) or an exclamation mark (!) for
@@ -16736,7 +16865,7 @@ chicken-and-egg problem.</p>
 add the changelog file to your branch, or:</p>
 </li>
 <li>
-<p>Look at the <a href="https://github.com/matrix-org/synapse/issues?q=">list of all
+<p>Look at the <a href="https://github.com/element-hq/synapse/issues?q=">list of all
 issues/PRs</a>, add one to the
 highest number you see, and quickly open the PR before somebody else claims
 your number.</p>
@@ -16763,70 +16892,16 @@ directory, you will need both a regular newsfragment <em>and</em> an entry in th
 debian changelog. (Though typically such changes should be submitted as two
 separate pull requests.)</p>
 <h2 id="sign-off"><a class="header" href="#sign-off">Sign off</a></h2>
-<p>In order to have a concrete record that your contribution is intentional
-and you agree to license it under the same terms as the project's license, we've adopted the
-same lightweight approach that the Linux Kernel
-<a href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin%3E">submitting patches process</a>,
-<a href="https://github.com/docker/docker/blob/master/CONTRIBUTING.md">Docker</a>, and many other
-projects use: the DCO (<a href="http://developercertificate.org/">Developer Certificate of Origin</a>).
-This is a simple declaration that you wrote
-the contribution or otherwise have the right to contribute it to Matrix:</p>
-<pre><code>Developer Certificate of Origin
-Version 1.1
-
-Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
-660 York Street, Suite 102,
-San Francisco, CA 94110 USA
-
-Everyone is permitted to copy and distribute verbatim copies of this
-license document, but changing it is not allowed.
-
-Developer's Certificate of Origin 1.1
-
-By making a contribution to this project, I certify that:
-
-(a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
-
-(b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
-    by me, under the same open source license (unless I am
-    permitted to submit under a different license), as indicated
-    in the file; or
-
-(c) The contribution was provided directly to me by some other
-    person who certified (a), (b) or (c) and I have not modified
-    it.
-
-(d) I understand and agree that this project and the contribution
-    are public and that a record of the contribution (including all
-    personal information I submit with it, including my sign-off) is
-    maintained indefinitely and may be redistributed consistent with
-    this project or the open source license(s) involved.
-</code></pre>
-<p>If you agree to this for your contribution, then all that's needed is to
-include the line in your commit or pull request comment:</p>
-<pre><code>Signed-off-by: Your Name &lt;your@email.example.org&gt;
-</code></pre>
+<p>After you make a PR a comment from @CLAassistant will appear asking you to sign
+the <a href="https://cla-assistant.io/element-hq/synapse">CLA</a>.
+This will link a page to allow you to confirm that you have read and agreed to
+the CLA by signing in with GitHub.</p>
+<p>Alternatively, you can sign off before opening a PR by going to
+<a href="https://cla-assistant.io/element-hq/synapse">https://cla-assistant.io/element-hq/synapse</a>.</p>
 <p>We accept contributions under a legally identifiable name, such as
 your name on government documentation or common-law names (names
 claimed by legitimate usage or repute). Unfortunately, we cannot
 accept anonymous contributions at this time.</p>
-<p>Git allows you to add this signoff automatically when using the <code>-s</code>
-flag to <code>git commit</code>, which uses the name and email set in your
-<code>user.name</code> and <code>user.email</code> git configs.</p>
-<h3 id="private-sign-off"><a class="header" href="#private-sign-off">Private Sign off</a></h3>
-<p>If you would like to provide your legal name privately to the Matrix.org
-Foundation (instead of in a public commit or comment), you can do so
-by emailing your legal name and a link to the pull request to
-<a href="mailto:dco@matrix.org?subject=Private%20sign%20off">dco@matrix.org</a>.
-It helps to include &quot;sign off&quot; or similar in the subject line. You will then
-be instructed further.</p>
-<p>Once private sign off is complete, doing so for future contributions will not
-be required.</p>
 <h1 id="10-turn-feedback-into-better-code"><a class="header" href="#10-turn-feedback-into-better-code">10. Turn feedback into better code.</a></h1>
 <p>Once the Pull Request is opened, you will see a few things:</p>
 <ol>
@@ -17059,10 +17134,10 @@ before. Here, by way of an arbitrary example, is the top of <code>git log --grap
 <p>Note how the commit comment explains clearly what is changing and why. Also
 note the <em>absence</em> of merge commits, as well as the absence of commits called
 things like (to pick a few culprits):
-<a href="https://github.com/matrix-org/synapse/commit/84691da6c">“pep8”</a>, <a href="https://github.com/matrix-org/synapse/commit/474810d9d">“fix broken
+<a href="https://github.com/element-hq/synapse/commit/84691da6c">“pep8”</a>, <a href="https://github.com/element-hq/synapse/commit/474810d9d">“fix broken
 test”</a>,
-<a href="https://github.com/matrix-org/synapse/commit/c9d72e457">“oops”</a>,
-<a href="https://github.com/matrix-org/synapse/commit/836358823">“typo”</a>, or <a href="https://github.com/matrix-org/synapse/commit/707374d5d">“Who's
+<a href="https://github.com/element-hq/synapse/commit/c9d72e457">“oops”</a>,
+<a href="https://github.com/element-hq/synapse/commit/836358823">“typo”</a>, or <a href="https://github.com/element-hq/synapse/commit/707374d5d">“Who's
 the president?”</a>.</p>
 <p>There are a number of reasons why keeping a clean commit history is a good
 thing:</p>
@@ -17173,7 +17248,7 @@ the history of Synapse), we've had two releases in flight at once. Obviously,
 <code>release-v1.2</code> is more-stable than <code>release-v1.3</code>. <a href="development/git.html#a3">^</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="synapse-demo-setup"><a class="header" href="#synapse-demo-setup">Synapse demo setup</a></h1>
 <p><strong>DO NOT USE THESE DEMO SERVERS IN PRODUCTION</strong></p>
-<p>Requires you to have a <a href="https://matrix-org.github.io/synapse/develop/development/contributing_guide.html#4-install-the-dependencies">Synapse development environment setup</a>.</p>
+<p>Requires you to have a <a href="https://element-hq.github.io/synapse/develop/development/contributing_guide.html#4-install-the-dependencies">Synapse development environment setup</a>.</p>
 <p>The demo setup allows running three federation Synapse servers, with server
 names <code>localhost:8480</code>, <code>localhost:8481</code>, and <code>localhost:8482</code>.</p>
 <p>You can access them via any Matrix client over HTTP at <code>localhost:8080</code>,
@@ -17706,9 +17781,9 @@ phonenumbers = [
 ]
 </code></pre>
 <p>We can see this pinned version inside the docker image for that release:</p>
-<pre><code>$ docker pull matrixdotorg/synapse:v1.57.0
+<pre><code>$ docker pull vectorim/synapse:v1.97.0
 ...
-$ docker run --entrypoint pip matrixdotorg/synapse:v1.57.0 show phonenumbers
+$ docker run --entrypoint pip vectorim/synapse:v1.97.0 show phonenumbers
 Name: phonenumbers
 Version: 8.12.44
 Summary: Python version of Google's common library for parsing, formatting, storing and validating international phone numbers.
@@ -18538,7 +18613,7 @@ minimal.</p>
 the classes interact, can be found in
 <code>synapse/replication/tcp/__init__.py</code></p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="streams"><a class="header" href="#streams">Streams</a></h2>
-<p>Synapse has a concept of &quot;streams&quot;, which are roughly described in <a href="https://github.com/matrix-org/synapse/blob/develop/synapse/storage/util/id_generators.py"><code>id_generators.py</code></a>.
+<p>Synapse has a concept of &quot;streams&quot;, which are roughly described in <a href="https://github.com/element-hq/synapse/blob/develop/synapse/storage/util/id_generators.py"><code>id_generators.py</code></a>.
 Generally speaking, streams are a series of notifications that something in Synapse's database has changed that the application might need to respond to.
 For example:</p>
 <ul>
@@ -18546,9 +18621,9 @@ For example:</p>
 <li>The account data stream reports changes to users' <a href="https://spec.matrix.org/v1.7/client-server-api/#client-config">account data</a>.</li>
 <li>The to-device stream reports when a device has a new <a href="https://spec.matrix.org/v1.7/client-server-api/#send-to-device-messaging">to-device message</a>.</li>
 </ul>
-<p>See <a href="https://github.com/matrix-org/synapse/blob/develop/synapse/replication/tcp/streams/__init__.py"><code>synapse.replication.tcp.streams</code></a> for the full list of streams.</p>
+<p>See <a href="https://github.com/element-hq/synapse/blob/develop/synapse/replication/tcp/streams/__init__.py"><code>synapse.replication.tcp.streams</code></a> for the full list of streams.</p>
 <p>It is very helpful to understand the streams mechanism when working on any part of Synapse that needs to respond to changes—especially if those changes are made by different workers.
-To that end, let's describe streams formally, paraphrasing from the docstring of <a href="https://github.com/matrix-org/synapse/blob/a719b703d9bd0dade2565ddcad0e2f3a7a9d4c37/synapse/storage/util/id_generators.py#L96"><code>AbstractStreamIdGenerator</code></a>.</p>
+To that end, let's describe streams formally, paraphrasing from the docstring of <a href="https://github.com/element-hq/synapse/blob/a719b703d9bd0dade2565ddcad0e2f3a7a9d4c37/synapse/storage/util/id_generators.py#L96"><code>AbstractStreamIdGenerator</code></a>.</p>
 <h3 id="definition"><a class="header" href="#definition">Definition</a></h3>
 <p>A stream is an append-only log <code>T1, T2, ..., Tn, ...</code> of facts<sup class="footnote-reference"><a href="#1">1</a></sup> which grows over time.
 Only &quot;writers&quot; can add facts to a stream, and there may be multiple writers.</p>
@@ -19647,7 +19722,7 @@ and is consistent with the <code>.deb</code> packages released by Matrix.org.</p
 <h3 id="presence-1"><a class="header" href="#presence-1">Presence</a></h3>
 <p>This is the main reason people have a poor matrix experience on resource constrained homeservers. Element web will frequently be saying the server is offline while the python process will be pegged at 100% cpu. This feature is used to tell when other users are active (have a client app in the foreground) and therefore more likely to respond, but requires a lot of network activity to maintain even when nobody is talking in a room.</p>
 <p><img src="https://user-images.githubusercontent.com/71895/94848963-a47a3580-041c-11eb-8b6e-acb772b4259e.png" alt="Screenshot_2020-10-01_19-29-46" /></p>
-<p>While synapse does have some performance issues with presence <a href="https://github.com/matrix-org/synapse/issues/3971">#3971</a>, the fundamental problem is that this is an easy feature to implement for a centralised service at nearly no overhead, but federation makes it combinatorial <a href="https://github.com/matrix-org/synapse/issues/8055">#8055</a>. There is also a client-side config option which disables the UI and idle tracking <a href="https://github.com/vector-im/element-web/blob/v1.7.8/config.sample.json#L45">enable_presence_by_hs_url</a> to blacklist the largest instances but I didn't notice much difference, so I recommend disabling the feature entirely at the server level as well.</p>
+<p>While synapse does have some performance issues with presence <a href="https://github.com/matrix-org/synapse/issues/3971">#3971</a>, the fundamental problem is that this is an easy feature to implement for a centralised service at nearly no overhead, but federation makes it combinatorial <a href="https://github.com/matrix-org/synapse/issues/8055">#8055</a>. There is also a client-side config option which disables the UI and idle tracking <a href="https://github.com/element-hq/element-web/blob/v1.7.8/config.sample.json#L45">enable_presence_by_hs_url</a> to blacklist the largest instances but I didn't notice much difference, so I recommend disabling the feature entirely at the server level as well.</p>
 <h3 id="joining"><a class="header" href="#joining">Joining</a></h3>
 <p>Joining a &quot;large&quot;, federated room will initially fail with the below message in Element web, but waiting a while (10-60mins) and trying again will succeed without any issue. What counts as &quot;large&quot; is not message history, user count, connections to homeservers or even a simple count of the state events, it is instead how long the state resolution algorithm takes. However, each of those numbers are reasonable proxies, so we can use them as estimates since user count is one of the few things you see before joining.</p>
 <p><img src="https://user-images.githubusercontent.com/71895/94945781-18771500-04d3-11eb-8419-83c2da73a341.png" alt="Screenshot_2020-10-02_17-15-06" /></p>

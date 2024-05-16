@@ -124,10 +124,10 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/element-hq/synapse" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse/edit/develop/docs/sso_mapping_providers.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/element-hq/synapse/edit/develop/docs/sso_mapping_providers.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -199,13 +199,15 @@ comment these options out and use those specified by the module instead.</p>
 <h3 id="building-a-custom-openid-mapping-provider"><a class="header" href="#building-a-custom-openid-mapping-provider">Building a Custom OpenID Mapping Provider</a></h3>
 <p>A custom mapping provider must specify the following methods:</p>
 <ul>
-<li><code>def __init__(self, parsed_config)</code>
+<li><code>def __init__(self, parsed_config, module_api)</code>
 <ul>
 <li>Arguments:
 <ul>
 <li><code>parsed_config</code> - A configuration object that is the return value of the
 <code>parse_config</code> method. You should set any configuration options needed by
 the module here.</li>
+<li><code>module_api</code> - a <code>synapse.module_api.ModuleApi</code> object which provides the
+stable API available for extension modules.</li>
 </ul>
 </li>
 </ul>
@@ -268,6 +270,7 @@ string is returned from this method, Synapse will prompt the user to
 either accept this localpart or pick their own username. Otherwise this
 option has no effect. If omitted, defaults to <code>False</code>.</li>
 <li><code>display_name</code>: An optional string, the display name for the user.</li>
+<li><code>picture</code>: An optional string, the avatar url for the user.</li>
 <li><code>emails</code>: A list of strings, the email address(es) to associate with
 this user. If omitted, defaults to an empty list.</li>
 </ul>
@@ -300,7 +303,7 @@ usually returned as part of the <a href="https://spec.matrix.org/latest/client-s
 <h3 id="default-openid-mapping-provider"><a class="header" href="#default-openid-mapping-provider">Default OpenID Mapping Provider</a></h3>
 <p>Synapse has a built-in OpenID mapping provider if a custom provider isn't
 specified in the config. It is located at
-<a href="https://github.com/matrix-org/synapse/blob/develop/synapse/handlers/oidc.py"><code>synapse.handlers.oidc.JinjaOidcMappingProvider</code></a>.</p>
+<a href="https://github.com/element-hq/synapse/blob/develop/synapse/handlers/oidc.py"><code>synapse.handlers.oidc.JinjaOidcMappingProvider</code></a>.</p>
 <h2 id="saml-mapping-providers"><a class="header" href="#saml-mapping-providers">SAML Mapping Providers</a></h2>
 <p>The SAML mapping provider can be customized by editing the
 <a href="usage/configuration/config_documentation.html#saml2_config"><code>saml2_config.user_mapping_provider.module</code></a>
@@ -415,7 +418,7 @@ complete registration using methods from the <code>ModuleApi</code>.</p>
 <h3 id="default-saml-mapping-provider"><a class="header" href="#default-saml-mapping-provider">Default SAML Mapping Provider</a></h3>
 <p>Synapse has a built-in SAML mapping provider if a custom provider isn't
 specified in the config. It is located at
-<a href="https://github.com/matrix-org/synapse/blob/develop/synapse/handlers/saml.py"><code>synapse.handlers.saml.DefaultSamlMappingProvider</code></a>.</p>
+<a href="https://github.com/element-hq/synapse/blob/develop/synapse/handlers/saml.py"><code>synapse.handlers.saml.DefaultSamlMappingProvider</code></a>.</p>
 
                     </main>
 

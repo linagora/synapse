@@ -124,10 +124,10 @@
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/element-hq/synapse" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse/edit/develop/docs/usage/configuration/config_documentation.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/element-hq/synapse/edit/develop/docs/usage/configuration/config_documentation.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -625,7 +625,7 @@ for <a href="../../workers.html">workers</a> and containers without listener e.g
   # that unwraps TLS.
   #
   # If you plan to use a reverse proxy, please see
-  # https://matrix-org.github.io/synapse/latest/reverse_proxy.html.
+  # https://element-hq.github.io/synapse/latest/reverse_proxy.html.
   #
   - port: 8008
     tls: false
@@ -656,7 +656,7 @@ for <a href="../../workers.html">workers</a> and containers without listener e.g
   # conflicts, and providing enhanced security through system file permissions.
   #
   # Note that x_forwarded will default to true, when using a UNIX socket. Please see
-  # https://matrix-org.github.io/synapse/latest/reverse_proxy.html.
+  # https://element-hq.github.io/synapse/latest/reverse_proxy.html.
   #
   - path: /run/synapse/main_public.sock
     type: http
@@ -753,8 +753,8 @@ trailing 's'.</p>
 subjects. It defaults to 'Matrix'.</p>
 </li>
 <li>
-<p><code>enable_notifs</code>: Set to true to enable sending emails for messages that the user
-has missed. Disabled by default.</p>
+<p><code>enable_notifs</code>: Set to true to allow users to receive e-mail notifications. If this is not set,
+users can configure e-mail notifications but will not receive them. Disabled by default.</p>
 </li>
 <li>
 <p><code>notif_for_new_users</code>: Set to false to disable automatic subscription to email
@@ -1207,6 +1207,23 @@ the same whitelist.</p>
   - syd.example.com
 </code></pre>
 <hr />
+<h3 id="federation_whitelist_endpoint_enabled"><a class="header" href="#federation_whitelist_endpoint_enabled"><code>federation_whitelist_endpoint_enabled</code></a></h3>
+<p>Enables an endpoint for fetching the federation whitelist config.</p>
+<p>The request method and path is <code>GET /_synapse/client/v1/config/federation_whitelist</code>, and the
+response format is:</p>
+<pre><code class="language-json">{
+    &quot;whitelist_enabled&quot;: true,  // Whether the federation whitelist is being enforced
+    &quot;whitelist&quot;: [  // Which server names are allowed by the whitelist
+        &quot;example.com&quot;
+    ]
+}
+</code></pre>
+<p>If <code>whitelist_enabled</code> is <code>false</code> then the server is permitted to federate with all others.</p>
+<p>The endpoint requires authentication.</p>
+<p>Example configuration:</p>
+<pre><code class="language-yaml">federation_whitelist_endpoint_enabled: true
+</code></pre>
+<hr />
 <h3 id="federation_metrics_domains"><a class="header" href="#federation_metrics_domains"><code>federation_metrics_domains</code></a></h3>
 <p>Report prometheus metrics on the age of PDUs being sent to and received from
 the given domains. This can be used to give an idea of &quot;delay&quot; on inbound
@@ -1275,6 +1292,9 @@ for a given destination and the state of the backoff is stored in the database.<
 <h3 id="event_cache_size"><a class="header" href="#event_cache_size"><code>event_cache_size</code></a></h3>
 <p>The number of events to cache in memory. Defaults to 10K. Like other caches,
 this is affected by <code>caches.global_factor</code> (see below).</p>
+<p>For example, the default is 10K and the global_factor default is 0.5.</p>
+<p>Since 10K * 0.5 is 5K then the event cache size will be 5K.</p>
+<p>The cache affected by this configuration is named as &quot;<em>getEvent</em>&quot;.</p>
 <p>Note that this option is not part of the <code>caches</code> section.</p>
 <p>Example configuration:</p>
 <pre><code class="language-yaml">event_cache_size: 15K
@@ -1294,6 +1314,7 @@ set.</p>
 variable. Setting by environment variable takes priority over
 setting through the config file.</p>
 <p>Defaults to 0.5, which will halve the size of all caches.</p>
+<p>Note that changing this value also affects the HTTP connection pool.</p>
 </li>
 <li>
 <p><code>per_cache_factors</code>: A dictionary of cache name to cache factor for that individual
@@ -1367,7 +1388,7 @@ caches:
 </code></pre>
 <p>If you are running multiple workers, you must individually update the worker
 config file and send this signal to each worker process.</p>
-<p>If you're using the <a href="https://github.com/matrix-org/synapse/blob/develop/contrib/systemd/matrix-synapse.service">example systemd service</a>
+<p>If you're using the <a href="https://github.com/element-hq/synapse/blob/develop/contrib/systemd/matrix-synapse.service">example systemd service</a>
 file in Synapse's <code>contrib</code> directory, you can send a <code>SIGHUP</code> signal by using
 <code>systemctl reload matrix-synapse</code>.</p>
 <hr />
@@ -2310,6 +2331,10 @@ federated servers if <code>autocreate_auto_join_rooms_federated</code> is true (
 <li>&quot;trusted_private_chat&quot;: an invitation is required to join this room and the invitee is
 assigned a power level of 100 upon joining the room.</li>
 </ul>
+<p>Each preset will set up a room in the same manner as if it were provided as the <code>preset</code> parameter when
+calling the
+<a href="https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3createroom"><code>POST /_matrix/client/v3/createRoom</code></a>
+Client-Server API endpoint.</p>
 <p>If a value of &quot;private_chat&quot; or &quot;trusted_private_chat&quot; is used then
 <code>auto_join_mxid_localpart</code> must also be configured.</p>
 <p>Defaults to &quot;public_chat&quot;.</p>
@@ -2376,7 +2401,7 @@ existing sessions until they are refreshed.</p>
 <pre><code class="language-yaml">refreshable_access_token_lifetime: 10m
 </code></pre>
 <hr />
-<h3 id="refresh_token_lifetime-24h"><a class="header" href="#refresh_token_lifetime-24h"><code>refresh_token_lifetime: 24h</code></a></h3>
+<h3 id="refresh_token_lifetime"><a class="header" href="#refresh_token_lifetime"><code>refresh_token_lifetime</code></a></h3>
 <p>Time that a refresh token remains valid for (provided that it is not
 exchanged for another one first).
 This option can be used to automatically log-out inactive sessions.
@@ -2445,7 +2470,7 @@ Defaults to false.</p>
 <hr />
 <h3 id="sentry"><a class="header" href="#sentry"><code>sentry</code></a></h3>
 <p>Use this option to enable sentry integration. Provide the DSN assigned to you by sentry
-with the <code>dsn</code> setting. </p>
+with the <code>dsn</code> setting.</p>
 <p>An optional <code>environment</code> field can be used to specify an environment. This allows
 for log maintenance based on different environments, ensuring better organization
 and analysis..</p>
@@ -2982,6 +3007,10 @@ not included in <code>scopes</code>. Set to <code>userinfo_endpoint</code> to al
 userinfo endpoint.</p>
 </li>
 <li>
+<p><code>additional_authorization_parameters</code>: String to string dictionary that will be passed as
+additional parameters to the authorization grant URL.</p>
+</li>
+<li>
 <p><code>allow_existing_users</code>: set to true to allow a user logging in via OIDC to
 match a pre-existing account instead of failing. This could be used if
 switching from password logins to OIDC. Defaults to false.</p>
@@ -3113,6 +3142,8 @@ claim MUST contain &quot;admin&quot;.</p>
     token_endpoint: &quot;https://accounts.example.com/oauth2/token&quot;
     userinfo_endpoint: &quot;https://accounts.example.com/userinfo&quot;
     jwks_uri: &quot;https://accounts.example.com/.well-known/jwks.json&quot;
+    additional_authorization_parameters:
+      acr_values: 2fa
     skip_verification: true
     enable_registration: true
     user_mapping_provider:
@@ -3172,6 +3203,19 @@ All of the listed attributes must match for the login to be permitted.</p>
 users. This allows the CAS SSO flow to be limited to sign in only, rather than
 automatically registering users that have a valid SSO login but do not have
 a pre-registered account. Defaults to true.</p>
+</li>
+<li>
+<p><code>allow_numeric_ids</code>: set to 'true' allow numeric user IDs (default false).
+This allows CAS SSO flow to provide user IDs composed of numbers only.
+These identifiers will be prefixed by the letter &quot;u&quot; by default.
+The prefix can be configured using the &quot;numeric_ids_prefix&quot; option.
+Be careful to choose the prefix correctly to avoid any possible conflicts
+(e.g. user 1234 becomes u1234 when a user u1234 already exists).</p>
+</li>
+<li>
+<p><code>numeric_ids_prefix</code>: the prefix you wish to add in front of a numeric user ID
+when the &quot;allow_numeric_ids&quot; option is set to &quot;true&quot;.
+By default, the prefix is the letter &quot;u&quot; and only alphanumeric characters are allowed.</p>
 <p><em>Added in Synapse 1.93.0.</em></p>
 </li>
 </ul>
@@ -3185,6 +3229,8 @@ a pre-registered account. Defaults to true.</p>
     userGroup: &quot;staff&quot;
     department: None
   enable_registration: true
+  allow_numeric_ids: true
+  numeric_ids_prefix: &quot;numericuser&quot;
 </code></pre>
 <hr />
 <h3 id="sso"><a class="header" href="#sso"><code>sso</code></a></h3>
@@ -3573,6 +3619,8 @@ published to the room list.</p>
 The first rule that matches decides if the request is allowed or denied. If no
 rule matches, the request is denied. In particular, this means that configuring
 an empty list of rules will deny every alias creation request.</p>
+<p>Requests to create a public (public as in published to the room directory) room which violates
+the configured rules will result in the room being created but not published to the room directory.</p>
 <p>Each rule is a YAML object containing four fields, each of which is an optional string:</p>
 <ul>
 <li><code>user_id</code>: a glob pattern that matches against the user publishing the room.</li>

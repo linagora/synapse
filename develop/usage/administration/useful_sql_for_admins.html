@@ -124,10 +124,10 @@
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/element-hq/synapse" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/matrix-org/synapse/edit/develop/docs/usage/administration/useful_sql_for_admins.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/element-hq/synapse/edit/develop/docs/usage/administration/useful_sql_for_admins.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -328,6 +328,12 @@ WHERE room_stats_state.room_id = event_json.room_id&quot; | psql -d synapse -h l
 <pre><code class="language-sql">SELECT user_id, device_id, user_agent, TO_TIMESTAMP(last_seen / 1000) AS &quot;last_seen&quot;
   FROM devices
   WHERE last_seen &lt; DATE_PART('epoch', NOW() - INTERVAL '3 month') * 1000;
+</code></pre>
+<h2 id="clear-the-cache-of-a-remote-users-device-list"><a class="header" href="#clear-the-cache-of-a-remote-users-device-list">Clear the cache of a remote user's device list</a></h2>
+<p>Forces the resync of a remote user's device list - if you have somehow cached a bad state, and the remote server is
+will not send out a device list update.</p>
+<pre><code class="language-sql">INSERT INTO device_lists_remote_resync
+VALUES ('USER_ID', (EXTRACT(epoch FROM NOW()) * 1000)::BIGINT);
 </code></pre>
 
                     </main>
